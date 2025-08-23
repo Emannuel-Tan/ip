@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
 public class TaskMaster {
+    // Function to display all saved tasks
+    public static void listTasks(String[] tasks, int taskIndex) {
+        for (int i = 0; i < taskIndex; i += 1) {
+            System.out.println(i + ". " + tasks[i]);
+        }
+    }
+
+    // Main Function
     public static void main(String[] args) {
         // Create Constants for future use
         String spacing = "⎯";
@@ -16,12 +24,28 @@ public class TaskMaster {
         // Opening message output
         System.out.print(START_MESSAGE);
 
-        // Main Loop (loop until "bye" command given)
+        // Declare Variables
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+        String[] tasks = new String[100];
+        int taskIndex = 0;
+
+        // Main Loop (loop until "bye" command given)
         while (!line.equals("bye")){
-            System.out.print(spacing + line + "\n" + spacing);
+
+            if (line.equals("list")){
+                // List all tasks
+                System.out.print(spacing);
+                listTasks(tasks, taskIndex);
+                System.out.print(spacing);
+            } else {
+                // Store text
+                System.out.print(spacing + "added: " + line + "\n" + spacing);
+                tasks[taskIndex] = line;
+                taskIndex++;
+            }
+
             line = in.nextLine();
         }
 
