@@ -33,11 +33,27 @@ public class TaskMaster {
         Task[] tasks = new Task[100];
 
         // Main Loop (loop until "bye" command given)
-        while (!line.contains("bye")){
+        while (!line.startsWith("bye")){
 
-            if (line.contains("list")){
+            if (line.startsWith("list")) {
                 // List all tasks
                 listTasks(tasks, Task.numberOfTasks, spacing);
+            } else if (line.startsWith("mark")) {
+                // Set specified task to be done
+                String taskToMark = line.substring(4);
+                taskToMark = taskToMark.trim();
+                int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+                tasks[taskToMarkIndex].setDone();
+                System.out.println(spacing + "Nice! I've marked this task as done: ");
+                System.out.print(tasks[taskToMarkIndex].getStatus() + "\n" + spacing);
+            } else if (line.startsWith("unmark")) {
+                // Set specified task to be not done
+                String taskToUnmark = line.substring(6);
+                taskToUnmark = taskToUnmark.trim();
+                int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+                tasks[taskToUnmarkIndex].setUndone();
+                System.out.println(spacing + "OK! I've marked this task as not done yet: ");
+                System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
             } else {
                 // Store text
                 System.out.print(spacing + "added: " + line + "\n" + spacing);
