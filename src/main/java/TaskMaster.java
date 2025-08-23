@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class TaskMaster {
-    // Function to display all saved tasks
+    // Display all saved tasks
     public static void listTasks(Task[] tasks, int taskIndex, String spacing) {
         System.out.print(spacing);
         for (int i = 0; i < taskIndex; i += 1) {
@@ -10,7 +10,23 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
-    // Main Function
+    // Mark a task
+    public static void markTask (Task[] tasks, String taskToMark, String spacing) {
+        int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+        tasks[taskToMarkIndex].setDone();
+        System.out.println(spacing + "Nice! I've marked this task as done: ");
+        System.out.print(tasks[taskToMarkIndex].getStatus() + "\n" + spacing);
+    }
+
+    // Unmark a task
+    public static void unmarkTask (Task[] tasks, String taskToUnmark, String spacing) {
+        int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+        tasks[taskToUnmarkIndex].setUndone();
+        System.out.println(spacing + "OK! I've marked this task as not done yet: ");
+        System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
+    }
+
+    // Main Method
     public static void main(String[] args) {
         // Create Constants for future use
         String spacing = "⎯";
@@ -38,22 +54,15 @@ public class TaskMaster {
             if (line.startsWith("list")) {
                 // List all tasks
                 listTasks(tasks, Task.numberOfTasks, spacing);
+
             } else if (line.startsWith("mark")) {
                 // Set specified task to be done
-                String taskToMark = line.substring(4);
-                taskToMark = taskToMark.trim();
-                int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
-                tasks[taskToMarkIndex].setDone();
-                System.out.println(spacing + "Nice! I've marked this task as done: ");
-                System.out.print(tasks[taskToMarkIndex].getStatus() + "\n" + spacing);
+                markTask(tasks, (line.substring(4)).trim(), spacing);
+
             } else if (line.startsWith("unmark")) {
                 // Set specified task to be not done
-                String taskToUnmark = line.substring(6);
-                taskToUnmark = taskToUnmark.trim();
-                int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
-                tasks[taskToUnmarkIndex].setUndone();
-                System.out.println(spacing + "OK! I've marked this task as not done yet: ");
-                System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
+                unmarkTask(tasks, (line.substring(6)).trim(), spacing);
+
             } else {
                 // Store text
                 System.out.print(spacing + "added: " + line + "\n" + spacing);
@@ -61,6 +70,7 @@ public class TaskMaster {
                 Task.numberOfTasks++;
             }
 
+            // Get next input
             line = in.nextLine();
         }
 
