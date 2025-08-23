@@ -2,10 +2,12 @@ import java.util.Scanner;
 
 public class TaskMaster {
     // Function to display all saved tasks
-    public static void listTasks(String[] tasks, int taskIndex) {
+    public static void listTasks(Task[] tasks, int taskIndex, String spacing) {
+        System.out.print(spacing);
         for (int i = 0; i < taskIndex; i += 1) {
-            System.out.println(i + ". " + tasks[i]);
+            System.out.println((i+1) + "." + tasks[i].getStatus());
         }
+        System.out.print(spacing);
     }
 
     // Main Function
@@ -24,26 +26,23 @@ public class TaskMaster {
         // Opening message output
         System.out.print(START_MESSAGE);
 
-        // Declare Variables
+        // Declare Variables & Take Input
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        String[] tasks = new String[100];
-        int taskIndex = 0;
+        Task[] tasks = new Task[100];
 
         // Main Loop (loop until "bye" command given)
-        while (!line.equals("bye")){
+        while (!line.contains("bye")){
 
-            if (line.equals("list")){
+            if (line.contains("list")){
                 // List all tasks
-                System.out.print(spacing);
-                listTasks(tasks, taskIndex);
-                System.out.print(spacing);
+                listTasks(tasks, Task.numberOfTasks, spacing);
             } else {
                 // Store text
                 System.out.print(spacing + "added: " + line + "\n" + spacing);
-                tasks[taskIndex] = line;
-                taskIndex++;
+                tasks[Task.numberOfTasks] = new Task(line);
+                Task.numberOfTasks++;
             }
 
             line = in.nextLine();
