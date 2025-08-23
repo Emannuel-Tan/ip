@@ -16,6 +16,15 @@ public class TaskMaster {
         // Opening message output
         System.out.print(START_MESSAGE);
 
+        // Main Loop (loop until "bye" command given)
+        String line;
+        Scanner in = new Scanner(System.in);
+        line = in.nextLine();
+        while (!line.equals("bye")){
+            System.out.print(spacing + line + "\n" + spacing);
+            line = in.nextLine();
+        }
+
         // Ending message output
         System.out.print(END_MESSAGE);
 
