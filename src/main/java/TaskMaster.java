@@ -51,11 +51,12 @@ public class TaskMaster {
     // Output Message if unknown command given
     public static void unknownCommand (String spacing) {
         System.out.println(spacing + "Unknown command given, please use one of the following commands:");
-        System.out.println("'list': Lists all tasks");
-        System.out.println("'bye': Exit the program");
-        System.out.println("'todo' <task> : Add a task with no deadline");
-        System.out.println("'mark' <task_number>: Mark the task at task_number as done");
-        System.out.println("'unmark' <task_number>: Mark the task at task_number as not done");
+        System.out.println("list: Lists all tasks");
+        System.out.println("bye: Exit the program");
+        System.out.println("todo <task> : Add a task with no deadline");
+        System.out.println("deadline <task> /by <deadline>: Add a task with deadline");
+        System.out.println("mark <task_number>: Mark the task at task_number as done");
+        System.out.println("unmark <task_number>: Mark the task at task_number as not done");
         System.out.print(spacing);
     }
 
@@ -73,9 +74,29 @@ public class TaskMaster {
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
 
-        // Update Number of Tasks
+        // Update number of tasks
         Task.numberOfTasks++;
     }
+
+    // Add Deadline
+    public static void addDeadline(Task[] tasks, String line, String spacing) {
+        final int LENGTH_OF_DEADLINE = 8;
+        final int LENGTH_OF_BY = 2;
+
+        // Seperate task and deadline from command
+        line = line.substring(LENGTH_OF_DEADLINE);
+        line = line.trim();
+        String[] command = line.split("/");
+        command[1] = command[1].substring(LENGTH_OF_BY);
+
+        // Add to task array
+        tasks[Task.numberOfTasks] = new Deadline(command[0].trim(), command[1].trim());
+
+        // Output
+        addTaskOutput(tasks[Task.numberOfTasks], spacing);
+
+        // Update number of tasks
+        Task.numberOfTasks++;
     }
 
     // Main Method
@@ -113,9 +134,12 @@ public class TaskMaster {
                 // Set specified task to be not done
                 unmarkTask(tasks, (line.substring(LENGTH_OF_UNMARK)).trim(), SPACING);
 
-            } else if (line.startsWith("todo")){
+            } else if (line.startsWith("todo")) {
                 // Add ToDo
                 addToDo(tasks, line, SPACING);
+            } else if (line.startsWith("deadline")) {
+                // Add Deadline
+                addDeadline(tasks, line, SPACING);
             } else {
                 unknownCommand(SPACING);
             }
