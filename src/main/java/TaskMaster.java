@@ -5,13 +5,13 @@ public class TaskMaster {
     public static void listTasks(Task[] tasks, String spacing) {
         System.out.print(spacing);
         for (int i = 0; i < Task.numberOfTasks; i += 1) {
-            System.out.println((i+1) + "." + tasks[i].getStatus());
+            System.out.println((i + 1) + "." + tasks[i].getStatus());
         }
         System.out.print(spacing);
     }
 
     // Mark a task
-    public static void markTask (Task[] tasks, String taskToMark, String spacing) {
+    public static void markTask(Task[] tasks, String taskToMark, String spacing) {
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
         tasks[taskToMarkIndex].setDone();
         System.out.println(spacing + "Nice! I've marked this task as done: ");
@@ -19,7 +19,7 @@ public class TaskMaster {
     }
 
     // Unmark a task
-    public static void unmarkTask (Task[] tasks, String taskToUnmark, String spacing) {
+    public static void unmarkTask(Task[] tasks, String taskToUnmark, String spacing) {
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
         tasks[taskToUnmarkIndex].setUndone();
         System.out.println(spacing + "OK! I've marked this task as not done yet: ");
@@ -27,18 +27,20 @@ public class TaskMaster {
     }
 
     // Start Message
-    public static void startMessage (String spacing) {
-        final String LOGO = " _____   ___   ____  |  /   |\\  /|  ___   ____  _____   ____  ___   \n"
-                +           "|__ __| |   | |      | /    | \\/ | |   | |     |__ __| |     |   \\ \n"
-                +           "  | |   |___| |___   |      |    | |___| |___    | |   |____ |___/   \n"
-                +           "  | |   |   |     |  | \\    |    | |   |     |   | |   |     |   \\ \n"
-                +           "  |_|   |   | ____|  |  \\   |    | |   | ____|   |_|   |____ |    \\\n";
+    public static void startMessage(String spacing) {
+        final String LOGO = """
+                 _____   ___   ____  |  /   |\\  /|  ___   ____  _____   ____  ___  \s
+                |__ __| |   | |      | /    | \\/ | |   | |     |__ __| |     |   \\\s
+                  | |   |___| |___   |      |    | |___| |___    | |   |____ |___/  \s
+                  | |   |   |     |  | \\    |    | |   |     |   | |   |     |   \\\s
+                  |_|   |   | ____|  |  \\   |    | |   | ____|   |_|   |____ |    \\
+                """;
 
         System.out.print(spacing + "Hello I'm\n" + LOGO + "\nWhat can I do for you?\n" + spacing);
     }
 
     // End Message
-    public static void endMessage (String spacing) {
+    public static void endMessage(String spacing) {
         System.out.println(spacing + "Bye. Hope to see you again soon!\n" + spacing);
     }
 
@@ -47,9 +49,9 @@ public class TaskMaster {
         System.out.print(spacing + "Added Task:\n  " + task.getStatus() +
                 "\nNow you have " + (Task.numberOfTasks + 1) + " task(s) in the list\n" + spacing);
     }
-    
+
     // Output Message if unknown command given
-    public static void unknownCommand (String spacing) {
+    public static void unknownCommand(String spacing) {
         System.out.println(spacing + "Unknown command given, please use one of the following commands:");
         System.out.println("list: Lists all tasks");
         System.out.println("bye: Exit the program");
@@ -62,15 +64,15 @@ public class TaskMaster {
     }
 
     // Add ToDo
-    public static void addToDo(Task[] tasks, String line, String spacing) {
+    public static void addToDo(Task[] tasks, String userInput, String spacing) {
         final int LENGTH_OF_TODO = 4;
 
         // Separate task from command
-        line = line.substring(LENGTH_OF_TODO);
-        line = line.trim();
+        userInput = userInput.substring(LENGTH_OF_TODO);
+        userInput = userInput.trim();
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new ToDo(line);
+        tasks[Task.numberOfTasks] = new ToDo(userInput);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -80,18 +82,20 @@ public class TaskMaster {
     }
 
     // Add Deadline
-    public static void addDeadline(Task[] tasks, String line, String spacing) {
+    public static void addDeadline(Task[] tasks, String userInput, String spacing) {
         final int LENGTH_OF_DEADLINE = 8;
         final int LENGTH_OF_BY = 2;
 
-        // Seperate task and deadline from command
-        line = line.substring(LENGTH_OF_DEADLINE);
-        line = line.trim();
-        String[] command = line.split("/");
-        command[1] = command[1].substring(LENGTH_OF_BY);
+        // Separate task and deadline from command
+        // taskParameters[0]: Task
+        // taskParameters[1]: Deadline
+        userInput = userInput.substring(LENGTH_OF_DEADLINE);
+        userInput = userInput.trim();
+        String[] taskParameters = userInput.split("/");
+        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY);
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Deadline(command[0].trim(), command[1].trim());
+        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0].trim(), taskParameters[1].trim());
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -101,20 +105,24 @@ public class TaskMaster {
     }
 
     // Add Event
-    public static void addEvent(Task[] tasks, String line, String spacing) {
+    public static void addEvent(Task[] tasks, String userInput, String spacing) {
         final int LENGTH_OF_EVENT = 5;
         final int LENGTH_OF_FROM = 4;
         final int LENGTH_OF_TO = 2;
 
-        // Seperate task and from and to from command
-        line = line.substring(LENGTH_OF_EVENT);
-        line = line.trim();
-        String[] command = line.split("/");
-        command[1] = command[1].substring(LENGTH_OF_FROM);
-        command[2] = command[2].substring(LENGTH_OF_TO);
+        // Separate task and from and to from command
+        // taskParameters[0]: Task
+        // taskParameters[1]: From
+        // taskParameters[2]: To
+        userInput = userInput.substring(LENGTH_OF_EVENT);
+        userInput = userInput.trim();
+        String[] taskParameters = userInput.split("/");
+        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM);
+        taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO);
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Event(command[0].trim(), command[1].trim(), command[2].trim());
+        tasks[Task.numberOfTasks] = new Event(taskParameters[0].trim(), taskParameters[1].trim(),
+                taskParameters[2].trim());
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -139,43 +147,43 @@ public class TaskMaster {
         startMessage(SPACING);
 
         // Take Input
-        String line;
+        String userInput;
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        userInput = in.nextLine();
 
         // Main Loop (loop until "bye" command given)
-        while (!line.startsWith("bye")){
+        while (!userInput.startsWith("bye")) {
 
-            if (line.startsWith("list")) {
+            if (userInput.startsWith("list")) {
                 // List all tasks
                 listTasks(tasks, SPACING);
 
-            } else if (line.startsWith("mark")) {
+            } else if (userInput.startsWith("mark")) {
                 // Set specified task to be done
-                markTask(tasks, (line.substring(LENGTH_OF_MARK)).trim(), SPACING);
+                markTask(tasks, (userInput.substring(LENGTH_OF_MARK)).trim(), SPACING);
 
-            } else if (line.startsWith("unmark")) {
+            } else if (userInput.startsWith("unmark")) {
                 // Set specified task to be not done
-                unmarkTask(tasks, (line.substring(LENGTH_OF_UNMARK)).trim(), SPACING);
+                unmarkTask(tasks, (userInput.substring(LENGTH_OF_UNMARK)).trim(), SPACING);
 
-            } else if (line.startsWith("todo")) {
+            } else if (userInput.startsWith("todo")) {
                 // Add ToDo
-                addToDo(tasks, line, SPACING);
+                addToDo(tasks, userInput, SPACING);
 
-            } else if (line.startsWith("deadline")) {
+            } else if (userInput.startsWith("deadline")) {
                 // Add Deadline
-                addDeadline(tasks, line, SPACING);
+                addDeadline(tasks, userInput, SPACING);
 
-            } else if (line.startsWith("event")) {
+            } else if (userInput.startsWith("event")) {
                 // Add Event
-                addEvent(tasks, line, SPACING);
+                addEvent(tasks, userInput, SPACING);
 
             } else {
                 unknownCommand(SPACING);
             }
 
             // Get next input
-            line = in.nextLine();
+            userInput = in.nextLine();
         }
 
         // Ending message output
