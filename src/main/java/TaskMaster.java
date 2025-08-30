@@ -26,27 +26,38 @@ public class TaskMaster {
         System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
     }
 
-    // Main Method
-    public static void main(String[] args) {
-        // Create Constants for future use
-        String spacing = "⎯";
-        spacing = spacing.repeat(70) + "\n";
+    // Start Message
+    public static void startMessage (String spacing) {
         final String LOGO = " _____   ___   ____  |  /   |\\  /|  ___   ____  _____   ____  ___   \n"
                 +           "|__ __| |   | |      | /    | \\/ | |   | |     |__ __| |     |   \\ \n"
                 +           "  | |   |___| |___   |      |    | |___| |___    | |   |____ |___/   \n"
                 +           "  | |   |   |     |  | \\    |    | |   |     |   | |   |     |   \\ \n"
                 +           "  |_|   |   | ____|  |  \\   |    | |   | ____|   |_|   |____ |    \\\n";
-        final String START_MESSAGE = spacing + "Hello I'm\n" + LOGO + "\nWhat can I do for you?\n" + spacing;
-        final String END_MESSAGE = spacing + "Bye. Hope to see you again soon!\n" + spacing;
+
+        System.out.println(spacing + "Hello I'm\n" + LOGO + "\nWhat can I do for you?\n" + spacing);
+    }
+
+    // End Message
+    public static void endMessage (String spacing) {
+        System.out.println(spacing + "Bye. Hope to see you again soon!\n" + spacing);
+    }
+
+    // Main Method
+    public static void main(String[] args) {
+        // Create spacing
+        String spacing = "⎯";
+        spacing = spacing.repeat(70) + "\n";
+
+        // Create Task List
+        Task[] tasks = new Task[100];
 
         // Opening message output
-        System.out.print(START_MESSAGE);
+        startMessage(spacing);
 
-        // Declare Variables & Take Input
+        // Take Input
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        Task[] tasks = new Task[100];
 
         // Main Loop (loop until "bye" command given)
         while (!line.startsWith("bye")){
@@ -75,7 +86,6 @@ public class TaskMaster {
         }
 
         // Ending message output
-        System.out.print(END_MESSAGE);
-
+        endMessage(spacing);
     }
 }
