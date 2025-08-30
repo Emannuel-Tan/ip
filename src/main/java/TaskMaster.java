@@ -45,7 +45,7 @@ public class TaskMaster {
     // Output Message after addition of a Task
     public static void addTaskOutput(Task task, String spacing) {
         System.out.print(spacing + "Added Task:\n  " + task.getStatus() +
-                "\nNow you have " + Task.numberOfTasks + " task(s) in the list\n" + spacing);
+                "\nNow you have " + (Task.numberOfTasks + 1) + " task(s) in the list\n" + spacing);
     }
     
     // Output Message if unknown command given
