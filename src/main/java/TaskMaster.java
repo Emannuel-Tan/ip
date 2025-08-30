@@ -42,11 +42,26 @@ public class TaskMaster {
         System.out.println(spacing + "Bye. Hope to see you again soon!\n" + spacing);
     }
 
-    // Add Task
-    public static void addTask (Task[] tasks, String line, String spacing) {
-        System.out.print(spacing + "added: " + line + "\n" + spacing);
-        tasks[Task.numberOfTasks] = new Task(line);
+    // Output Message after addition of a Task
+    public static void addTaskOutput(String line, String spacing) {
+        System.out.print(spacing + "Added Task: " + line +
+                "\nNow you have " + Task.numberOfTasks + " task(s) in the list\n" + spacing);
+    }
+
+    // Add ToDo
+    public static void addToDo(Task[] tasks, String line, String spacing) {
+        final int LENGTH_OF_TODO = 4;
+
+        // Separate task from command
+        line = line.substring(LENGTH_OF_TODO);
+        line = line.trim();
+
+        // Add to task array & update size
+        tasks[Task.numberOfTasks] = new ToDo(line);
         Task.numberOfTasks++;
+
+        // Output
+        addTaskOutput(line, spacing);
     }
 
     // Main Method
@@ -87,9 +102,9 @@ public class TaskMaster {
                 // Set specified task to be not done
                 unmarkTask(tasks, (line.substring(LENGTH_OF_UNMARK)).trim(), spacing);
 
-            } else {
-                // Add Task
-                addTask(tasks, line, spacing);
+            } else if (line.startsWith("todo")){
+                // Add ToDo
+                addToDo(tasks, line, spacing);
             }
 
             // Get next input
