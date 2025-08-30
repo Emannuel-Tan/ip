@@ -34,7 +34,7 @@ public class TaskMaster {
                 +           "  | |   |   |     |  | \\    |    | |   |     |   | |   |     |   \\ \n"
                 +           "  |_|   |   | ____|  |  \\   |    | |   | ____|   |_|   |____ |    \\\n";
 
-        System.out.println(spacing + "Hello I'm\n" + LOGO + "\nWhat can I do for you?\n" + spacing);
+        System.out.print(spacing + "Hello I'm\n" + LOGO + "\nWhat can I do for you?\n" + spacing);
     }
 
     // End Message
