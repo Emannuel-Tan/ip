@@ -55,6 +55,7 @@ public class TaskMaster {
         System.out.println("bye: Exit the program");
         System.out.println("todo <task> : Add a task with no deadline");
         System.out.println("deadline <task> /by <deadline>: Add a task with deadline");
+        System.out.println("event <event_name> /from <start_time> /to <end_time>: Add a event with a start & end time");
         System.out.println("mark <task_number>: Mark the task at task_number as done");
         System.out.println("unmark <task_number>: Mark the task at task_number as not done");
         System.out.print(spacing);
@@ -91,6 +92,29 @@ public class TaskMaster {
 
         // Add to task array
         tasks[Task.numberOfTasks] = new Deadline(command[0].trim(), command[1].trim());
+
+        // Output
+        addTaskOutput(tasks[Task.numberOfTasks], spacing);
+
+        // Update number of tasks
+        Task.numberOfTasks++;
+    }
+
+    // Add Event
+    public static void addEvent(Task[] tasks, String line, String spacing) {
+        final int LENGTH_OF_EVENT = 5;
+        final int LENGTH_OF_FROM = 4;
+        final int LENGTH_OF_TO = 2;
+
+        // Seperate task and from and to from command
+        line = line.substring(LENGTH_OF_EVENT);
+        line = line.trim();
+        String[] command = line.split("/");
+        command[1] = command[1].substring(LENGTH_OF_FROM);
+        command[2] = command[2].substring(LENGTH_OF_TO);
+
+        // Add to task array
+        tasks[Task.numberOfTasks] = new Event(command[0].trim(), command[1].trim(), command[2].trim());
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -137,9 +161,15 @@ public class TaskMaster {
             } else if (line.startsWith("todo")) {
                 // Add ToDo
                 addToDo(tasks, line, SPACING);
+
             } else if (line.startsWith("deadline")) {
                 // Add Deadline
                 addDeadline(tasks, line, SPACING);
+
+            } else if (line.startsWith("event")) {
+                // Add Event
+                addEvent(tasks, line, SPACING);
+
             } else {
                 unknownCommand(SPACING);
             }
