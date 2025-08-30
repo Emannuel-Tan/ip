@@ -12,7 +12,14 @@ public class TaskMaster {
 
     // Mark a task
     public static void markTask(Task[] tasks, String taskToMark, String spacing) {
+        final int LENGTH_OF_MARK = 4;
+
+        // Separate task from command & Get index to mark in type int
+        taskToMark = taskToMark.substring(LENGTH_OF_MARK);
+        taskToMark = taskToMark.trim();
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+
+        // Set Task to done & Output
         tasks[taskToMarkIndex].setDone();
         System.out.println(spacing + "Nice! I've marked this task as done: ");
         System.out.print(tasks[taskToMarkIndex].getStatus() + "\n" + spacing);
@@ -20,7 +27,14 @@ public class TaskMaster {
 
     // Unmark a task
     public static void unmarkTask(Task[] tasks, String taskToUnmark, String spacing) {
+        final int LENGTH_OF_UNMARK = 6;
+
+        // Separate task from command & Get index to unmark in type int
+        taskToUnmark = taskToUnmark.substring(LENGTH_OF_UNMARK);
+        taskToUnmark = taskToUnmark.trim();
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+
+        // Set Task to not done & Output
         tasks[taskToUnmarkIndex].setUndone();
         System.out.println(spacing + "OK! I've marked this task as not done yet: ");
         System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
@@ -134,8 +148,6 @@ public class TaskMaster {
     // Main Method
     public static void main(String[] args) {
         // Create Constants
-        final int LENGTH_OF_MARK = 4;
-        final int LENGTH_OF_UNMARK = 6;
         final int LENGTH_OF_SPACING = 70;
         final int MAX_SIZE_OF_TASK_LIST = 100;
         final String SPACING = "⎯".repeat(LENGTH_OF_SPACING) + "\n";
@@ -160,11 +172,11 @@ public class TaskMaster {
 
             } else if (userInput.startsWith("mark")) {
                 // Set specified task to be done
-                markTask(tasks, (userInput.substring(LENGTH_OF_MARK)).trim(), SPACING);
+                markTask(tasks, userInput, SPACING);
 
             } else if (userInput.startsWith("unmark")) {
                 // Set specified task to be not done
-                unmarkTask(tasks, (userInput.substring(LENGTH_OF_UNMARK)).trim(), SPACING);
+                unmarkTask(tasks, userInput, SPACING);
 
             } else if (userInput.startsWith("todo")) {
                 // Add ToDo
@@ -179,6 +191,7 @@ public class TaskMaster {
                 addEvent(tasks, userInput, SPACING);
 
             } else {
+                // Output possible commands
                 unknownCommand(SPACING);
             }
 
