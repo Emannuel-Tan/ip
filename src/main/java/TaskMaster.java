@@ -47,6 +47,17 @@ public class TaskMaster {
         System.out.print(spacing + "Added Task: " + line +
                 "\nNow you have " + Task.numberOfTasks + " task(s) in the list\n" + spacing);
     }
+    
+    // Output Message if unknown command given
+    public static void unknownCommand (String spacing) {
+        System.out.println(spacing + "Unknown command given, please use one of the following commands:");
+        System.out.println("'list': Lists all tasks");
+        System.out.println("'bye': Exit the program");
+        System.out.println("'todo' <task> : Add a task with no deadline");
+        System.out.println("'mark' <task_number>: Mark the task at task_number as done");
+        System.out.println("'unmark' <task_number>: Mark the task at task_number as not done");
+        System.out.print(spacing);
+    }
 
     // Add ToDo
     public static void addToDo(Task[] tasks, String line, String spacing) {
@@ -71,16 +82,13 @@ public class TaskMaster {
         final int LENGTH_OF_UNMARK = 6;
         final int LENGTH_OF_SPACING = 70;
         final int MAX_SIZE_OF_TASK_LIST = 100;
-
-        // Create spacing
-        String spacing = "⎯";
-        spacing = spacing.repeat(LENGTH_OF_SPACING) + "\n";
+        final String SPACING = "⎯".repeat(LENGTH_OF_SPACING) + "\n";
 
         // Create Task List
         Task[] tasks = new Task[MAX_SIZE_OF_TASK_LIST];
 
         // Opening message output
-        startMessage(spacing);
+        startMessage(SPACING);
 
         // Take Input
         String line;
@@ -92,19 +100,21 @@ public class TaskMaster {
 
             if (line.startsWith("list")) {
                 // List all tasks
-                listTasks(tasks, Task.numberOfTasks, spacing);
+                listTasks(tasks, Task.numberOfTasks, SPACING);
 
             } else if (line.startsWith("mark")) {
                 // Set specified task to be done
-                markTask(tasks, (line.substring(LENGTH_OF_MARK)).trim(), spacing);
+                markTask(tasks, (line.substring(LENGTH_OF_MARK)).trim(), SPACING);
 
             } else if (line.startsWith("unmark")) {
                 // Set specified task to be not done
-                unmarkTask(tasks, (line.substring(LENGTH_OF_UNMARK)).trim(), spacing);
+                unmarkTask(tasks, (line.substring(LENGTH_OF_UNMARK)).trim(), SPACING);
 
             } else if (line.startsWith("todo")){
                 // Add ToDo
-                addToDo(tasks, line, spacing);
+                addToDo(tasks, line, SPACING);
+            } else {
+                unknownCommand(SPACING);
             }
 
             // Get next input
@@ -112,6 +122,6 @@ public class TaskMaster {
         }
 
         // Ending message output
-        endMessage(spacing);
+        endMessage(SPACING);
     }
 }
