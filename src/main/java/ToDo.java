@@ -1,9 +1,10 @@
 public class ToDo extends Task {
-    TaskType type = TaskType.T;
+    protected TaskType type;
 
     // Constructor
     public ToDo(String description) {
         super(description);
+        type = TaskType.T;
     }
 
     @Override
