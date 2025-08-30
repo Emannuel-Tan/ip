@@ -51,12 +51,18 @@ public class TaskMaster {
 
     // Main Method
     public static void main(String[] args) {
+        // Create Constants
+        final int LENGTH_OF_MARK = 4;
+        final int LENGTH_OF_UNMARK = 6;
+        final int LENGTH_OF_SPACING = 70;
+        final int MAX_SIZE_OF_TASK_LIST = 100;
+
         // Create spacing
         String spacing = "⎯";
-        spacing = spacing.repeat(70) + "\n";
+        spacing = spacing.repeat(LENGTH_OF_SPACING) + "\n";
 
         // Create Task List
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[MAX_SIZE_OF_TASK_LIST];
 
         // Opening message output
         startMessage(spacing);
@@ -75,11 +81,11 @@ public class TaskMaster {
 
             } else if (line.startsWith("mark")) {
                 // Set specified task to be done
-                markTask(tasks, (line.substring(4)).trim(), spacing);
+                markTask(tasks, (line.substring(LENGTH_OF_MARK)).trim(), spacing);
 
             } else if (line.startsWith("unmark")) {
                 // Set specified task to be not done
-                unmarkTask(tasks, (line.substring(6)).trim(), spacing);
+                unmarkTask(tasks, (line.substring(LENGTH_OF_UNMARK)).trim(), spacing);
 
             } else {
                 // Add Task
