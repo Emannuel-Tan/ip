@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class TaskMaster {
     // Display all saved tasks
-    public static void listTasks(Task[] tasks, int taskIndex, String spacing) {
+    public static void listTasks(Task[] tasks, String spacing) {
         System.out.print(spacing);
-        for (int i = 0; i < taskIndex; i += 1) {
+        for (int i = 0; i < Task.numberOfTasks; i += 1) {
             System.out.println((i+1) + "." + tasks[i].getStatus());
         }
         System.out.print(spacing);
@@ -148,7 +148,7 @@ public class TaskMaster {
 
             if (line.startsWith("list")) {
                 // List all tasks
-                listTasks(tasks, Task.numberOfTasks, SPACING);
+                listTasks(tasks, SPACING);
 
             } else if (line.startsWith("mark")) {
                 // Set specified task to be done
