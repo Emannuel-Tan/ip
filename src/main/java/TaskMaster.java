@@ -42,6 +42,13 @@ public class TaskMaster {
         System.out.println(spacing + "Bye. Hope to see you again soon!\n" + spacing);
     }
 
+    // Add Task
+    public static void addTask (Task[] tasks, String line, String spacing) {
+        System.out.print(spacing + "added: " + line + "\n" + spacing);
+        tasks[Task.numberOfTasks] = new Task(line);
+        Task.numberOfTasks++;
+    }
+
     // Main Method
     public static void main(String[] args) {
         // Create spacing
@@ -75,10 +82,8 @@ public class TaskMaster {
                 unmarkTask(tasks, (line.substring(6)).trim(), spacing);
 
             } else {
-                // Store text
-                System.out.print(spacing + "added: " + line + "\n" + spacing);
-                tasks[Task.numberOfTasks] = new Task(line);
-                Task.numberOfTasks++;
+                // Add Task
+                addTask(tasks, line, spacing);
             }
 
             // Get next input
