@@ -43,8 +43,8 @@ public class TaskMaster {
     }
 
     // Output Message after addition of a Task
-    public static void addTaskOutput(String line, String spacing) {
-        System.out.print(spacing + "Added Task: " + line +
+    public static void addTaskOutput(Task task, String spacing) {
+        System.out.print(spacing + "Added Task:\n  " + task.getStatus() +
                 "\nNow you have " + Task.numberOfTasks + " task(s) in the list\n" + spacing);
     }
     
@@ -67,12 +67,15 @@ public class TaskMaster {
         line = line.substring(LENGTH_OF_TODO);
         line = line.trim();
 
-        // Add to task array & update size
+        // Add to task array
         tasks[Task.numberOfTasks] = new ToDo(line);
-        Task.numberOfTasks++;
 
         // Output
-        addTaskOutput(line, spacing);
+        addTaskOutput(tasks[Task.numberOfTasks], spacing);
+
+        // Update Number of Tasks
+        Task.numberOfTasks++;
+    }
     }
 
     // Main Method
