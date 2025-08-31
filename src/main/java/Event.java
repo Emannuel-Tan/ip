@@ -12,6 +12,6 @@ public class Event extends ToDo {
 
     @Override
     public String getStatus() {
-        return super.getStatus() + "(from: " + from + " to: " + to + ")";
+        return super.getStatus() + " (from: " + from + " to: " + to + ")";
     }
 }

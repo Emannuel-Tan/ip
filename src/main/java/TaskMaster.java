@@ -21,7 +21,7 @@ public class TaskMaster {
 
         // Set Task to done & Output
         tasks[taskToMarkIndex].setDone();
-        System.out.println(spacing + "Nice! I've marked this task as done: ");
+        System.out.println(spacing + "Nice! I've marked this task as done:");
         System.out.print(tasks[taskToMarkIndex].getStatus() + "\n" + spacing);
     }
 
@@ -36,7 +36,7 @@ public class TaskMaster {
 
         // Set Task to not done & Output
         tasks[taskToUnmarkIndex].setUndone();
-        System.out.println(spacing + "OK! I've marked this task as not done yet: ");
+        System.out.println(spacing + "OK! I've marked this task as not done yet:");
         System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
     }
 
