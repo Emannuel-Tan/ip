@@ -55,7 +55,7 @@ public class TaskMaster {
 
     // End Message
     public static void endMessage(String spacing) {
-        System.out.println(spacing + "Bye. Hope to see you again soon!\n" + spacing);
+        System.out.print(spacing + "Bye. Hope to see you again soon!\n" + spacing);
     }
 
     // Output Message after addition of a Task
