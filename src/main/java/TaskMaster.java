@@ -11,11 +11,11 @@ public class TaskMaster {
     }
 
     // Mark a task
-    public static void markTask(Task[] tasks, String taskToMark, String spacing) {
+    public static void markTask(Task[] tasks, String userInput, String spacing) {
         final int LENGTH_OF_MARK = 4;
 
         // Separate task from command & Get index to mark in type int
-        taskToMark = taskToMark.substring(LENGTH_OF_MARK);
+        String taskToMark = userInput.substring(LENGTH_OF_MARK);
         taskToMark = taskToMark.trim();
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
 
@@ -26,11 +26,11 @@ public class TaskMaster {
     }
 
     // Unmark a task
-    public static void unmarkTask(Task[] tasks, String taskToUnmark, String spacing) {
+    public static void unmarkTask(Task[] tasks, String userInput, String spacing) {
         final int LENGTH_OF_UNMARK = 6;
 
         // Separate task from command & Get index to unmark in type int
-        taskToUnmark = taskToUnmark.substring(LENGTH_OF_UNMARK);
+        String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK);
         taskToUnmark = taskToUnmark.trim();
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
 
@@ -82,11 +82,11 @@ public class TaskMaster {
         final int LENGTH_OF_TODO = 4;
 
         // Separate task from command
-        userInput = userInput.substring(LENGTH_OF_TODO);
-        userInput = userInput.trim();
+        String toDoTask = userInput.substring(LENGTH_OF_TODO);
+        toDoTask = toDoTask.trim();
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new ToDo(userInput);
+        tasks[Task.numberOfTasks] = new ToDo(toDoTask);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -103,9 +103,9 @@ public class TaskMaster {
         // Separate task and deadline from command
         // taskParameters[0]: Task
         // taskParameters[1]: Deadline
-        userInput = userInput.substring(LENGTH_OF_DEADLINE);
-        userInput = userInput.trim();
-        String[] taskParameters = userInput.split("/");
+        String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE);
+        deadlineTask = deadlineTask.trim();
+        String[] taskParameters = deadlineTask.split("/");
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY);
 
         // Add to task array
@@ -128,9 +128,9 @@ public class TaskMaster {
         // taskParameters[0]: Task
         // taskParameters[1]: From
         // taskParameters[2]: To
-        userInput = userInput.substring(LENGTH_OF_EVENT);
-        userInput = userInput.trim();
-        String[] taskParameters = userInput.split("/");
+        String eventTask = userInput.substring(LENGTH_OF_EVENT);
+        eventTask = eventTask.trim();
+        String[] taskParameters = eventTask.split("/");
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM);
         taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO);
 
