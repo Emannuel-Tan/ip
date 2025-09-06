@@ -87,12 +87,16 @@ public class TaskMaster {
     }
 
     // Add ToDo
-    public static void addToDo(Task[] tasks, String userInput, String spacing) {
+    public static void addToDo(Task[] tasks, String userInput, String spacing) throws EmptyTodoTaskException {
         final int LENGTH_OF_TODO = 4;
 
         // Separate task from command
-        String toDoTask = userInput.substring(LENGTH_OF_TODO);
-        toDoTask = toDoTask.trim();
+        String toDoTask = userInput.substring(LENGTH_OF_TODO).trim();
+
+        // Error Handling
+        if  (toDoTask.isEmpty()) {
+            throw new EmptyTodoTaskException();
+        }
 
         // Add to task array
         tasks[Task.numberOfTasks] = new ToDo(toDoTask);
@@ -112,8 +116,7 @@ public class TaskMaster {
         // Separate task and deadline from command
         // taskParameters[0]: Task
         // taskParameters[1]: Deadline
-        String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE);
-        deadlineTask = deadlineTask.trim();
+        String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE).trim();
         String[] taskParameters = deadlineTask.split("/");
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY);
 
@@ -137,8 +140,7 @@ public class TaskMaster {
         // taskParameters[0]: Task
         // taskParameters[1]: From
         // taskParameters[2]: To
-        String eventTask = userInput.substring(LENGTH_OF_EVENT);
-        eventTask = eventTask.trim();
+        String eventTask = userInput.substring(LENGTH_OF_EVENT).trim();
         String[] taskParameters = eventTask.split("/");
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM);
         taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO);
@@ -155,7 +157,8 @@ public class TaskMaster {
     }
 
     // Handle Command
-    public static void handleCommand(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
+    public static void handleCommand(Task[] tasks, String userInput, String spacing)
+            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -186,10 +189,17 @@ public class TaskMaster {
         }
     }
 
-    // Handle Mark & Unmark out of bounds exception
+    // Handle Mark & Unmark non-existing task exception
     public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
         System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
         System.out.println("Please try again with a valid number!");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task in todo creation exception
+    public static void handleEmptyTodoTaskException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing task to add!!!");
+        System.out.println("Please try again with the format: todo <task>");
         System.out.print(spacing);
     }
 
@@ -217,6 +227,8 @@ public class TaskMaster {
                 handleCommand(tasks, userInput, SPACING);
             } catch (MarkUnmarkOutOfBoundsException e) {
                 handleMarkUnmarkOutOfBoundsException(SPACING);
+            } catch (EmptyTodoTaskException e) {
+                handleEmptyTodoTaskException(SPACING);
             }
 
             // Get next input
