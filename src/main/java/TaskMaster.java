@@ -110,7 +110,7 @@ public class TaskMaster {
 
     // Add Deadline
     public static void addDeadline(Task[] tasks, String userInput, String spacing)
-            throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommand {
+            throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException {
         final int LENGTH_OF_DEADLINE = 8;
         final int LENGTH_OF_BY = 2;
 
@@ -124,7 +124,7 @@ public class TaskMaster {
         if (taskParameters.length < 2) {
             throw new DeadlineCommandMissingInputException();
         } else if (!taskParameters[1].startsWith("by")) {
-            throw new DeadlineCommandWrongSubCommand();
+            throw new DeadlineCommandWrongSubCommandException();
         }
 
         // Trim inputs
@@ -148,7 +148,7 @@ public class TaskMaster {
 
     // Add Event
     public static void addEvent(Task[] tasks, String userInput, String spacing)
-            throws EventCommandMissingInputException, EventCommandWrongSubCommand {
+            throws EventCommandMissingInputException, EventCommandWrongSubCommandException {
         final int LENGTH_OF_EVENT = 5;
         final int LENGTH_OF_FROM = 4;
         final int LENGTH_OF_TO = 2;
@@ -164,7 +164,7 @@ public class TaskMaster {
         if (taskParameters.length < 3) {
             throw new EventCommandMissingInputException();
         } else if (!taskParameters[1].startsWith("from") || !taskParameters[2].startsWith("to")) {
-            throw new EventCommandWrongSubCommand();
+            throw new EventCommandWrongSubCommandException();
         }
 
         // Trim Inputs
@@ -190,8 +190,9 @@ public class TaskMaster {
 
     // Handle Command
     public static void handleCommand(Task[] tasks, String userInput, String spacing)
-            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException, DeadlineCommandMissingInputException,
-            DeadlineCommandWrongSubCommand, EventCommandMissingInputException, EventCommandWrongSubCommand {
+            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException,
+            DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
+            EventCommandMissingInputException, EventCommandWrongSubCommandException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -244,7 +245,7 @@ public class TaskMaster {
     }
 
     // Handle if subcommand /by is missing or incorrect
-    public static void handleDeadlineCommandWrongSubCommand(String spacing) {
+    public static void handleDeadlineCommandWrongSubCommandException(String spacing) {
         System.out.println(spacing + "OOPS!!! Subcommand /by is missing or wrong!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
         System.out.print(spacing);
@@ -258,7 +259,7 @@ public class TaskMaster {
     }
 
     // Handle if subcommand /from and/or /to is missing or incorrect
-    public static void handleEventCommandWrongSubCommand(String spacing) {
+    public static void handleEventCommandWrongSubCommandException(String spacing) {
         System.out.println(spacing + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
         System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
         System.out.print(spacing);
@@ -292,12 +293,12 @@ public class TaskMaster {
                 handleEmptyTodoTaskException(SPACING);
             } catch (DeadlineCommandMissingInputException e) {
                 handleDeadlineCommandMissingInputException(SPACING);
-            } catch (DeadlineCommandWrongSubCommand e) {
-                handleDeadlineCommandWrongSubCommand(SPACING);
+            } catch (DeadlineCommandWrongSubCommandException e) {
+                handleDeadlineCommandWrongSubCommandException(SPACING);
             } catch (EventCommandMissingInputException e) {
                 handleEventCommandMissingInputException(SPACING);
-            } catch (EventCommandWrongSubCommand e) {
-                handleEventCommandWrongSubCommand(SPACING);
+            } catch (EventCommandWrongSubCommandException e) {
+                handleEventCommandWrongSubCommandException(SPACING);
             }
 
             // Get next input
