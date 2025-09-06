@@ -19,4 +19,5 @@ unmark 4
 list
 mark 5
 todo
+deadline buy bread /by
 bye
