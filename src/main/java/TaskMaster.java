@@ -110,7 +110,7 @@ public class TaskMaster {
 
     // Add Deadline
     public static void addDeadline(Task[] tasks, String userInput, String spacing)
-            throws DeadlineCommandMissingInputException {
+            throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommand {
         final int LENGTH_OF_DEADLINE = 8;
         final int LENGTH_OF_BY = 2;
 
@@ -123,9 +123,13 @@ public class TaskMaster {
         // Error Handling
         if (taskParameters.length < 2) {
             throw new DeadlineCommandMissingInputException();
+        } else if (!taskParameters[1].startsWith("by")) {
+            throw new DeadlineCommandWrongSubCommand();
         }
+
         taskParameters[0] = taskParameters[0].trim();
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY).trim();
+
         if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty()) {
             throw new DeadlineCommandMissingInputException();
         }
@@ -179,7 +183,7 @@ public class TaskMaster {
     // Handle Command
     public static void handleCommand(Task[] tasks, String userInput, String spacing)
             throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException, DeadlineCommandMissingInputException,
-            EventCommandMissingInputException {
+            DeadlineCommandWrongSubCommand, EventCommandMissingInputException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -231,6 +235,13 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Handle if subcommand /by is missing or incorrect
+    public static void handleDeadlineCommandWrongSubCommand(String spacing) {
+        System.out.println(spacing + "OOPS!!! Subcommand /by is missing or wrong!!!");
+        System.out.println("Please try again with the format: deadline <task> /by <deadline>");
+        System.out.print(spacing);
+    }
+
     // Handle Empty field for task or from or to in Event creation exception
     public static void handleEventCommandMissingInputException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
@@ -266,6 +277,8 @@ public class TaskMaster {
                 handleEmptyTodoTaskException(SPACING);
             } catch (DeadlineCommandMissingInputException e) {
                 handleDeadlineCommandMissingInputException(SPACING);
+            } catch (DeadlineCommandWrongSubCommand e) {
+                handleDeadlineCommandWrongSubCommand(SPACING);
             } catch (EventCommandMissingInputException e) {
                 handleEventCommandMissingInputException(SPACING);
             }
