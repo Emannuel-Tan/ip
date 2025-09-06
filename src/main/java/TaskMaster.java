@@ -11,12 +11,17 @@ public class TaskMaster {
     }
 
     // Mark a task
-    public static void markTask(Task[] tasks, String userInput, String spacing) {
+    public static void markTask(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_MARK = 4;
 
         // Separate task from command & Get index to mark in type int
         String taskToMark = userInput.substring(LENGTH_OF_MARK).trim();
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+
+        // Error Handling
+        if (taskToMarkIndex < 0 || taskToMarkIndex >= Task.numberOfTasks) {
+            throw new MarkUnmarkOutOfBoundsException();
+        }
 
         // Set Task to done & Output
         tasks[taskToMarkIndex].setDone();
@@ -25,12 +30,17 @@ public class TaskMaster {
     }
 
     // Unmark a task
-    public static void unmarkTask(Task[] tasks, String userInput, String spacing) {
+    public static void unmarkTask(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_UNMARK = 6;
 
         // Separate task from command & Get index to unmark in type int
         String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK).trim();
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+
+        // Error Handling
+        if (taskToUnmarkIndex < 0 || taskToUnmarkIndex >= Task.numberOfTasks) {
+            throw new MarkUnmarkOutOfBoundsException();
+        }
 
         // Set Task to not done & Output
         tasks[taskToUnmarkIndex].setUndone();
@@ -77,12 +87,16 @@ public class TaskMaster {
     }
 
     // Add ToDo
-    public static void addToDo(Task[] tasks, String userInput, String spacing) {
+    public static void addToDo(Task[] tasks, String userInput, String spacing) throws EmptyTodoTaskException {
         final int LENGTH_OF_TODO = 4;
 
         // Separate task from command
-        String toDoTask = userInput.substring(LENGTH_OF_TODO);
-        toDoTask = toDoTask.trim();
+        String toDoTask = userInput.substring(LENGTH_OF_TODO).trim();
+
+        // Error Handling
+        if (toDoTask.isEmpty()) {
+            throw new EmptyTodoTaskException();
+        }
 
         // Add to task array
         tasks[Task.numberOfTasks] = new ToDo(toDoTask);
@@ -95,20 +109,35 @@ public class TaskMaster {
     }
 
     // Add Deadline
-    public static void addDeadline(Task[] tasks, String userInput, String spacing) {
+    public static void addDeadline(Task[] tasks, String userInput, String spacing)
+            throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException {
         final int LENGTH_OF_DEADLINE = 8;
         final int LENGTH_OF_BY = 2;
 
         // Separate task and deadline from command
         // taskParameters[0]: Task
         // taskParameters[1]: Deadline
-        String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE);
-        deadlineTask = deadlineTask.trim();
+        String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE).trim();
         String[] taskParameters = deadlineTask.split("/");
-        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY);
+
+        // Error Handling
+        if (taskParameters.length < 2) {
+            throw new DeadlineCommandMissingInputException();
+        } else if (!taskParameters[1].startsWith("by")) {
+            throw new DeadlineCommandWrongSubCommandException();
+        }
+
+        // Trim inputs
+        taskParameters[0] = taskParameters[0].trim();
+        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY).trim();
+
+        // Error Handling
+        if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty()) {
+            throw new DeadlineCommandMissingInputException();
+        }
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0].trim(), taskParameters[1].trim());
+        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0], taskParameters[1]);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -118,7 +147,8 @@ public class TaskMaster {
     }
 
     // Add Event
-    public static void addEvent(Task[] tasks, String userInput, String spacing) {
+    public static void addEvent(Task[] tasks, String userInput, String spacing)
+            throws EventCommandMissingInputException, EventCommandWrongSubCommandException {
         final int LENGTH_OF_EVENT = 5;
         final int LENGTH_OF_FROM = 4;
         final int LENGTH_OF_TO = 2;
@@ -127,21 +157,112 @@ public class TaskMaster {
         // taskParameters[0]: Task
         // taskParameters[1]: From
         // taskParameters[2]: To
-        String eventTask = userInput.substring(LENGTH_OF_EVENT);
-        eventTask = eventTask.trim();
+        String eventTask = userInput.substring(LENGTH_OF_EVENT).trim();
         String[] taskParameters = eventTask.split("/");
-        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM);
-        taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO);
+
+        // Error Handling
+        if (taskParameters.length < 3) {
+            throw new EventCommandMissingInputException();
+        } else if (!taskParameters[1].startsWith("from") || !taskParameters[2].startsWith("to")) {
+            throw new EventCommandWrongSubCommandException();
+        }
+
+        // Trim Inputs
+        taskParameters[0] = taskParameters[0].trim();
+        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM).trim();
+        taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO).trim();
+
+        // Error Handling
+        if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty() || taskParameters[2].isEmpty()) {
+            throw new EventCommandMissingInputException();
+        }
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Event(taskParameters[0].trim(), taskParameters[1].trim(),
-                taskParameters[2].trim());
+        tasks[Task.numberOfTasks] = new Event(taskParameters[0], taskParameters[1],
+                taskParameters[2]);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
 
         // Update number of tasks
         Task.numberOfTasks++;
+    }
+
+    // Handle Command
+    public static void handleCommand(Task[] tasks, String userInput, String spacing)
+            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException,
+            DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
+            EventCommandMissingInputException, EventCommandWrongSubCommandException {
+        if (userInput.startsWith("list")) {
+            // List all tasks
+            listTasks(tasks, spacing);
+
+        } else if (userInput.startsWith("mark")) {
+            // Set specified task to be done
+            markTask(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("unmark")) {
+            // Set specified task to be not done
+            unmarkTask(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("todo")) {
+            // Add ToDo
+            addToDo(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("deadline")) {
+            // Add Deadline
+            addDeadline(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("event")) {
+            // Add Event
+            addEvent(tasks, userInput, spacing);
+
+        } else {
+            // Output possible commands
+            unknownCommand(spacing);
+        }
+    }
+
+    // Handle Mark & Unmark non-existing task exception
+    public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
+        System.out.println("Please try again with a valid number!");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task in ToDo creation exception
+    public static void handleEmptyTodoTaskException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task>!!!");
+        System.out.println("Please try again with the format: todo <task>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task or deadline in Deadline creation exception
+    public static void handleDeadlineCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <deadline>!!!");
+        System.out.println("Please try again with the format: deadline <task> /by <deadline>");
+        System.out.print(spacing);
+    }
+
+    // Handle if subcommand /by is missing or incorrect
+    public static void handleDeadlineCommandWrongSubCommandException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Subcommand /by is missing or wrong!!!");
+        System.out.println("Please try again with the format: deadline <task> /by <deadline>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task or from or to in Event creation exception
+    public static void handleEventCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
+        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(spacing);
+    }
+
+    // Handle if subcommand /from and/or /to is missing or incorrect
+    public static void handleEventCommandWrongSubCommandException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
+        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(spacing);
     }
 
     // Main Method
@@ -164,34 +285,20 @@ public class TaskMaster {
 
         // Main Loop (loop until "bye" command given)
         while (!userInput.startsWith("bye")) {
-
-            if (userInput.startsWith("list")) {
-                // List all tasks
-                listTasks(tasks, SPACING);
-
-            } else if (userInput.startsWith("mark")) {
-                // Set specified task to be done
-                markTask(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("unmark")) {
-                // Set specified task to be not done
-                unmarkTask(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("todo")) {
-                // Add ToDo
-                addToDo(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("deadline")) {
-                // Add Deadline
-                addDeadline(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("event")) {
-                // Add Event
-                addEvent(tasks, userInput, SPACING);
-
-            } else {
-                // Output possible commands
-                unknownCommand(SPACING);
+            try {
+                handleCommand(tasks, userInput, SPACING);
+            } catch (MarkUnmarkOutOfBoundsException e) {
+                handleMarkUnmarkOutOfBoundsException(SPACING);
+            } catch (EmptyTodoTaskException e) {
+                handleEmptyTodoTaskException(SPACING);
+            } catch (DeadlineCommandMissingInputException e) {
+                handleDeadlineCommandMissingInputException(SPACING);
+            } catch (DeadlineCommandWrongSubCommandException e) {
+                handleDeadlineCommandWrongSubCommandException(SPACING);
+            } catch (EventCommandMissingInputException e) {
+                handleEventCommandMissingInputException(SPACING);
+            } catch (EventCommandWrongSubCommandException e) {
+                handleEventCommandWrongSubCommandException(SPACING);
             }
 
             // Get next input
