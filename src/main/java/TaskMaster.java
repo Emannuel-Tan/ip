@@ -124,13 +124,14 @@ public class TaskMaster {
         if (taskParameters.length < 2) {
             throw new DeadlineCommandMissingInputException();
         }
+        taskParameters[0] = taskParameters[0].trim();
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY).trim();
-        if (taskParameters[1].isEmpty()) {
+        if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty()) {
             throw new DeadlineCommandMissingInputException();
         }
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0].trim(), taskParameters[1]);
+        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0], taskParameters[1]);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -157,14 +158,15 @@ public class TaskMaster {
         if (taskParameters.length < 3) {
             throw new EventCommandMissingInputException();
         }
+        taskParameters[0] = taskParameters[0].trim();
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM).trim();
         taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO).trim();
-        if (taskParameters[1].isEmpty() || taskParameters[2].isEmpty()) {
+        if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty() || taskParameters[2].isEmpty()) {
             throw new EventCommandMissingInputException();
         }
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Event(taskParameters[0].trim(), taskParameters[1],
+        tasks[Task.numberOfTasks] = new Event(taskParameters[0], taskParameters[1],
                 taskParameters[2]);
 
         // Output
