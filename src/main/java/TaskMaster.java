@@ -188,7 +188,7 @@ public class TaskMaster {
 
     // Handle Mark & Unmark out of bounds exception
     public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exsist!");
+        System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
         System.out.println("Please try again with a valid number!");
         System.out.print(spacing);
     }
