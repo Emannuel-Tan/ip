@@ -94,7 +94,7 @@ public class TaskMaster {
         String toDoTask = userInput.substring(LENGTH_OF_TODO).trim();
 
         // Error Handling
-        if  (toDoTask.isEmpty()) {
+        if (toDoTask.isEmpty()) {
             throw new EmptyTodoTaskException();
         }
 
@@ -124,13 +124,13 @@ public class TaskMaster {
         if (taskParameters.length < 2) {
             throw new DeadlineCommandMissingInputException();
         }
-        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY);
+        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY).trim();
         if (taskParameters[1].isEmpty()) {
             throw new DeadlineCommandMissingInputException();
         }
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0].trim(), taskParameters[1].trim());
+        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0].trim(), taskParameters[1]);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -140,7 +140,8 @@ public class TaskMaster {
     }
 
     // Add Event
-    public static void addEvent(Task[] tasks, String userInput, String spacing) {
+    public static void addEvent(Task[] tasks, String userInput, String spacing)
+            throws EventCommandMissingInputException {
         final int LENGTH_OF_EVENT = 5;
         final int LENGTH_OF_FROM = 4;
         final int LENGTH_OF_TO = 2;
@@ -151,12 +152,20 @@ public class TaskMaster {
         // taskParameters[2]: To
         String eventTask = userInput.substring(LENGTH_OF_EVENT).trim();
         String[] taskParameters = eventTask.split("/");
-        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM);
-        taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO);
+
+        // Handle Errors
+        if (taskParameters.length < 3) {
+            throw new EventCommandMissingInputException();
+        }
+        taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM).trim();
+        taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO).trim();
+        if (taskParameters[1].isEmpty() || taskParameters[2].isEmpty()) {
+            throw new EventCommandMissingInputException();
+        }
 
         // Add to task array
-        tasks[Task.numberOfTasks] = new Event(taskParameters[0].trim(), taskParameters[1].trim(),
-                taskParameters[2].trim());
+        tasks[Task.numberOfTasks] = new Event(taskParameters[0].trim(), taskParameters[1],
+                taskParameters[2]);
 
         // Output
         addTaskOutput(tasks[Task.numberOfTasks], spacing);
@@ -167,7 +176,8 @@ public class TaskMaster {
 
     // Handle Command
     public static void handleCommand(Task[] tasks, String userInput, String spacing)
-            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException, DeadlineCommandMissingInputException {
+            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException, DeadlineCommandMissingInputException,
+            EventCommandMissingInputException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -207,15 +217,22 @@ public class TaskMaster {
 
     // Handle Empty field for task in ToDo creation exception
     public static void handleEmptyTodoTaskException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Missing task to add!!!");
+        System.out.println(spacing + "OOPS!!! Missing <task>!!!");
         System.out.println("Please try again with the format: todo <task>");
         System.out.print(spacing);
     }
 
     // Handle Empty field for task or deadline in Deadline creation exception
     public static void handleDeadlineCommandMissingInputException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Missing task to add and/or Missing Deadline!!!");
+        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <deadline>!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task or from or to in Event creation exception
+    public static void handleEventCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <from> and/or Missing <to>!!!");
+        System.out.println("Please try again with the format: event <task> /from <from> /to <to>");
         System.out.print(spacing);
     }
 
@@ -247,6 +264,8 @@ public class TaskMaster {
                 handleEmptyTodoTaskException(SPACING);
             } catch (DeadlineCommandMissingInputException e) {
                 handleDeadlineCommandMissingInputException(SPACING);
+            } catch (EventCommandMissingInputException e) {
+                handleEventCommandMissingInputException(SPACING);
             }
 
             // Get next input
