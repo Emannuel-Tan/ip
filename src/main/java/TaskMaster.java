@@ -231,8 +231,8 @@ public class TaskMaster {
 
     // Handle Empty field for task or from or to in Event creation exception
     public static void handleEventCommandMissingInputException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <from> and/or Missing <to>!!!");
-        System.out.println("Please try again with the format: event <task> /from <from> /to <to>");
+        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
+        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
         System.out.print(spacing);
     }
 
