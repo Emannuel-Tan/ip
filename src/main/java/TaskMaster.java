@@ -127,9 +127,11 @@ public class TaskMaster {
             throw new DeadlineCommandWrongSubCommand();
         }
 
+        // Trim inputs
         taskParameters[0] = taskParameters[0].trim();
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY).trim();
 
+        // Error Handling
         if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty()) {
             throw new DeadlineCommandMissingInputException();
         }
@@ -146,7 +148,7 @@ public class TaskMaster {
 
     // Add Event
     public static void addEvent(Task[] tasks, String userInput, String spacing)
-            throws EventCommandMissingInputException {
+            throws EventCommandMissingInputException, EventCommandWrongSubCommand {
         final int LENGTH_OF_EVENT = 5;
         final int LENGTH_OF_FROM = 4;
         final int LENGTH_OF_TO = 2;
@@ -158,13 +160,19 @@ public class TaskMaster {
         String eventTask = userInput.substring(LENGTH_OF_EVENT).trim();
         String[] taskParameters = eventTask.split("/");
 
-        // Handle Errors
+        // Error Handling
         if (taskParameters.length < 3) {
             throw new EventCommandMissingInputException();
+        } else if (!taskParameters[1].startsWith("from") || !taskParameters[2].startsWith("to")) {
+            throw new EventCommandWrongSubCommand();
         }
+
+        // Trim Inputs
         taskParameters[0] = taskParameters[0].trim();
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM).trim();
         taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO).trim();
+
+        // Error Handling
         if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty() || taskParameters[2].isEmpty()) {
             throw new EventCommandMissingInputException();
         }
@@ -183,7 +191,7 @@ public class TaskMaster {
     // Handle Command
     public static void handleCommand(Task[] tasks, String userInput, String spacing)
             throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException, DeadlineCommandMissingInputException,
-            DeadlineCommandWrongSubCommand, EventCommandMissingInputException {
+            DeadlineCommandWrongSubCommand, EventCommandMissingInputException, EventCommandWrongSubCommand {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -249,6 +257,13 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Handle if subcommand /from and/or /to is missing or incorrect
+    public static void handleEventCommandWrongSubCommand(String spacing) {
+        System.out.println(spacing + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
+        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(spacing);
+    }
+
     // Main Method
     public static void main(String[] args) {
         // Create Constants
@@ -281,6 +296,8 @@ public class TaskMaster {
                 handleDeadlineCommandWrongSubCommand(SPACING);
             } catch (EventCommandMissingInputException e) {
                 handleEventCommandMissingInputException(SPACING);
+            } catch (EventCommandWrongSubCommand e) {
+                handleEventCommandWrongSubCommand(SPACING);
             }
 
             // Get next input
