@@ -1,3 +1,5 @@
+package taskmaster;
+
 public class Event extends ToDo {
     protected String from;
     protected String to;
