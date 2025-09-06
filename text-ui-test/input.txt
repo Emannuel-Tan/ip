@@ -20,7 +20,10 @@ list
 mark 5
 todo
 deadline buy bread /by
+deadline buy bread /to Sunday
 event Holiday /from /to Sunday
 event /from Sunday /to
 event Holiday /from Sunday
+event Holiday /fro Sunday /to Monday
+event Holiday /from Sunday /by Monday
 bye
