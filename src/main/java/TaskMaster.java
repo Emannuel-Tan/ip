@@ -15,8 +15,7 @@ public class TaskMaster {
         final int LENGTH_OF_MARK = 4;
 
         // Separate task from command & Get index to mark in type int
-        String taskToMark = userInput.substring(LENGTH_OF_MARK);
-        taskToMark = taskToMark.trim();
+        String taskToMark = userInput.substring(LENGTH_OF_MARK).trim();
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
 
         // Set Task to done & Output
@@ -30,8 +29,7 @@ public class TaskMaster {
         final int LENGTH_OF_UNMARK = 6;
 
         // Separate task from command & Get index to unmark in type int
-        String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK);
-        taskToUnmark = taskToUnmark.trim();
+        String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK).trim();
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
 
         // Set Task to not done & Output
@@ -60,8 +58,9 @@ public class TaskMaster {
 
     // Output Message after addition of a Task
     public static void addTaskOutput(Task task, String spacing) {
-        System.out.print(spacing + "Added Task:\n  " + task.getStatus() +
-                "\nNow you have " + (Task.numberOfTasks + 1) + " task(s) in the list\n" + spacing);
+        System.out.println(spacing + "Added Task:");
+        System.out.println("  " + task.getStatus());
+        System.out.print("Now you have " + (Task.numberOfTasks + 1) + " task(s) in the list\n" + spacing);
     }
 
     // Output Message if unknown command given
@@ -160,8 +159,8 @@ public class TaskMaster {
 
         // Take Input
         String userInput;
-        Scanner in = new Scanner(System.in);
-        userInput = in.nextLine();
+        Scanner input = new Scanner(System.in);
+        userInput = input.nextLine().trim();
 
         // Main Loop (loop until "bye" command given)
         while (!userInput.startsWith("bye")) {
@@ -196,7 +195,7 @@ public class TaskMaster {
             }
 
             // Get next input
-            userInput = in.nextLine();
+            userInput = input.nextLine().trim();
         }
 
         // Ending message output
