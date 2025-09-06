@@ -109,7 +109,8 @@ public class TaskMaster {
     }
 
     // Add Deadline
-    public static void addDeadline(Task[] tasks, String userInput, String spacing) {
+    public static void addDeadline(Task[] tasks, String userInput, String spacing)
+            throws DeadlineCommandMissingInputException {
         final int LENGTH_OF_DEADLINE = 8;
         final int LENGTH_OF_BY = 2;
 
@@ -118,7 +119,15 @@ public class TaskMaster {
         // taskParameters[1]: Deadline
         String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE).trim();
         String[] taskParameters = deadlineTask.split("/");
+
+        // Error Handling
+        if (taskParameters.length < 2) {
+            throw new DeadlineCommandMissingInputException();
+        }
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY);
+        if (taskParameters[1].isEmpty()) {
+            throw new DeadlineCommandMissingInputException();
+        }
 
         // Add to task array
         tasks[Task.numberOfTasks] = new Deadline(taskParameters[0].trim(), taskParameters[1].trim());
@@ -158,7 +167,7 @@ public class TaskMaster {
 
     // Handle Command
     public static void handleCommand(Task[] tasks, String userInput, String spacing)
-            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException {
+            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException, DeadlineCommandMissingInputException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -196,10 +205,17 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
-    // Handle Empty field for task in todo creation exception
+    // Handle Empty field for task in ToDo creation exception
     public static void handleEmptyTodoTaskException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing task to add!!!");
         System.out.println("Please try again with the format: todo <task>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task or deadline in Deadline creation exception
+    public static void handleDeadlineCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing task to add and/or Missing Deadline!!!");
+        System.out.println("Please try again with the format: deadline <task> /by <deadline>");
         System.out.print(spacing);
     }
 
@@ -229,6 +245,8 @@ public class TaskMaster {
                 handleMarkUnmarkOutOfBoundsException(SPACING);
             } catch (EmptyTodoTaskException e) {
                 handleEmptyTodoTaskException(SPACING);
+            } catch (DeadlineCommandMissingInputException e) {
+                handleDeadlineCommandMissingInputException(SPACING);
             }
 
             // Get next input
