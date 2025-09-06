@@ -1,4 +1,4 @@
-public class Deadline extends ToDo{
+public class Deadline extends ToDo {
     protected String by;
 
     // Constructor
