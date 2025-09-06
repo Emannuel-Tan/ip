@@ -11,12 +11,17 @@ public class TaskMaster {
     }
 
     // Mark a task
-    public static void markTask(Task[] tasks, String userInput, String spacing) {
+    public static void markTask(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_MARK = 4;
 
         // Separate task from command & Get index to mark in type int
         String taskToMark = userInput.substring(LENGTH_OF_MARK).trim();
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+
+        // Error Handling
+        if (taskToMarkIndex < 0 || taskToMarkIndex >= Task.numberOfTasks) {
+            throw new MarkUnmarkOutOfBoundsException();
+        }
 
         // Set Task to done & Output
         tasks[taskToMarkIndex].setDone();
@@ -25,12 +30,17 @@ public class TaskMaster {
     }
 
     // Unmark a task
-    public static void unmarkTask(Task[] tasks, String userInput, String spacing) {
+    public static void unmarkTask(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_UNMARK = 6;
 
         // Separate task from command & Get index to unmark in type int
         String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK).trim();
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+
+        // Error Handling
+        if (taskToUnmarkIndex < 0 || taskToUnmarkIndex >= Task.numberOfTasks) {
+            throw new MarkUnmarkOutOfBoundsException();
+        }
 
         // Set Task to not done & Output
         tasks[taskToUnmarkIndex].setUndone();
@@ -144,6 +154,45 @@ public class TaskMaster {
         Task.numberOfTasks++;
     }
 
+    // Handle Command
+    public static void handleCommand(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
+        if (userInput.startsWith("list")) {
+            // List all tasks
+            listTasks(tasks, spacing);
+
+        } else if (userInput.startsWith("mark")) {
+            // Set specified task to be done
+            markTask(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("unmark")) {
+            // Set specified task to be not done
+            unmarkTask(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("todo")) {
+            // Add ToDo
+            addToDo(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("deadline")) {
+            // Add Deadline
+            addDeadline(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("event")) {
+            // Add Event
+            addEvent(tasks, userInput, spacing);
+
+        } else {
+            // Output possible commands
+            unknownCommand(spacing);
+        }
+    }
+
+    // Handle Mark & Unmark out of bounds exception
+    public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exsist!");
+        System.out.println("Please try again with a valid number!");
+        System.out.print(spacing);
+    }
+
     // Main Method
     public static void main(String[] args) {
         // Create Constants
@@ -164,34 +213,10 @@ public class TaskMaster {
 
         // Main Loop (loop until "bye" command given)
         while (!userInput.startsWith("bye")) {
-
-            if (userInput.startsWith("list")) {
-                // List all tasks
-                listTasks(tasks, SPACING);
-
-            } else if (userInput.startsWith("mark")) {
-                // Set specified task to be done
-                markTask(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("unmark")) {
-                // Set specified task to be not done
-                unmarkTask(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("todo")) {
-                // Add ToDo
-                addToDo(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("deadline")) {
-                // Add Deadline
-                addDeadline(tasks, userInput, SPACING);
-
-            } else if (userInput.startsWith("event")) {
-                // Add Event
-                addEvent(tasks, userInput, SPACING);
-
-            } else {
-                // Output possible commands
-                unknownCommand(SPACING);
+            try {
+                handleCommand(tasks, userInput, SPACING);
+            } catch (MarkUnmarkOutOfBoundsException e) {
+                handleMarkUnmarkOutOfBoundsException(SPACING);
             }
 
             // Get next input
