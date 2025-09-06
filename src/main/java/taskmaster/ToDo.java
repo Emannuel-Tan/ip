@@ -1,3 +1,5 @@
+package taskmaster;
+
 public class ToDo extends Task {
     protected TaskType type;
 
