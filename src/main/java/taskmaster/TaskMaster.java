@@ -242,7 +242,8 @@ public class TaskMaster {
 
     // Delete Task
     public static void deleteTask(ArrayList<Task> tasks, String userInput, String spacing)
-            throws DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException {
+            throws DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
+            DeleteCommandTooManyInputException {
         final int LENGTH_OF_DELETE = 6;
 
         // Separate index from command
@@ -254,7 +255,12 @@ public class TaskMaster {
         }
 
         // Get Index in int
-        int taskToDeleteIndex = Integer.parseInt(taskToDelete) - 1;
+        int taskToDeleteIndex;
+        try {
+            taskToDeleteIndex = Integer.parseInt(taskToDelete) - 1;
+        } catch (NumberFormatException e) {
+            throw new DeleteCommandTooManyInputException();
+        }
 
         // Error Handling
         if (taskToDeleteIndex < 0 || taskToDeleteIndex >= Task.numberOfTasks) {
