@@ -100,6 +100,7 @@ public class TaskMaster {
         System.out.println("event <event_name> /from <start_time> /to <end_time>: Add a event with a start & end time");
         System.out.println("mark <task_number>: Mark the task at task_number as done");
         System.out.println("unmark <task_number>: Mark the task at task_number as not done");
+        System.out.println("delete <task_number>: Delete the task at task_number");
         System.out.print(spacing);
     }
 
