@@ -261,8 +261,8 @@ public class TaskMaster {
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
             DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
             EmptyTodoTaskException, EventCommandMissingInputException,
-            EventCommandWrongSubCommandException, MarkUnmarkOutOfBoundsException,
-            MarkCommandMissingInputException, UnmarkCommandMissingInputException {
+            EventCommandWrongSubCommandException, MarkCommandMissingInputException,
+            MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -297,20 +297,6 @@ public class TaskMaster {
         }
     }
 
-    // Handle Mark & Unmark non-existing task
-    public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
-        System.out.println("Please try again with a valid number!");
-        System.out.print(spacing);
-    }
-
-    // Handle Empty field for task in ToDo creation
-    public static void handleEmptyTodoTaskException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Missing <task>!!!");
-        System.out.println("Please try again with the format: todo <task>");
-        System.out.print(spacing);
-    }
-
     // Handle Empty field for task or deadline in Deadline creation
     public static void handleDeadlineCommandMissingInputException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <deadline>!!!");
@@ -322,20 +308,6 @@ public class TaskMaster {
     public static void handleDeadlineCommandWrongSubCommandException(String spacing) {
         System.out.println(spacing + "OOPS!!! Subcommand /by is missing or wrong!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
-        System.out.print(spacing);
-    }
-
-    // Handle Empty field for task or from or to in Event creation
-    public static void handleEventCommandMissingInputException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
-        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
-        System.out.print(spacing);
-    }
-
-    // Handle if subcommand /from and/or /to is missing or incorrect
-    public static void handleEventCommandWrongSubCommandException(String spacing) {
-        System.out.println(spacing + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
-        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
         System.out.print(spacing);
     }
 
@@ -353,10 +325,38 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Handle Empty field for task in ToDo creation
+    public static void handleEmptyTodoTaskException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task>!!!");
+        System.out.println("Please try again with the format: todo <task>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for task or from or to in Event creation
+    public static void handleEventCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
+        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(spacing);
+    }
+
+    // Handle if subcommand /from and/or /to is missing or incorrect
+    public static void handleEventCommandWrongSubCommandException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
+        System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(spacing);
+    }
+
     // Handle Empty field for mark
     public static void handleMarkCommandMissingInputException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task_number>!!!");
         System.out.println("Please try again with the format: mark <task_number>");
+        System.out.print(spacing);
+    }
+
+    // Handle Mark & Unmark non-existing task
+    public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
+        System.out.println("Please try again with a valid number!");
         System.out.print(spacing);
     }
 
@@ -388,7 +388,7 @@ public class TaskMaster {
         while (!userInput.startsWith("bye")) {
             try {
                 handleCommand(tasks, userInput, SPACING);
-                
+
             } catch (DeadlineCommandMissingInputException e) {
                 handleDeadlineCommandMissingInputException(SPACING);
             } catch (DeadlineCommandWrongSubCommandException e) {
@@ -403,10 +403,10 @@ public class TaskMaster {
                 handleEventCommandMissingInputException(SPACING);
             } catch (EventCommandWrongSubCommandException e) {
                 handleEventCommandWrongSubCommandException(SPACING);
-            } catch (MarkUnmarkOutOfBoundsException e) {
-                handleMarkUnmarkOutOfBoundsException(SPACING);
             } catch (MarkCommandMissingInputException e) {
                 handleMarkCommandMissingInputException(SPACING);
+            } catch (MarkUnmarkOutOfBoundsException e) {
+                handleMarkUnmarkOutOfBoundsException(SPACING);
             } catch (UnmarkCommandMissingInputException e) {
                 handleUnmarkCommandMissingInputException(SPACING);
             }
