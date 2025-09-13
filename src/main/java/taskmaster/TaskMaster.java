@@ -10,7 +10,9 @@ import taskmaster.exceptions.DeleteCommandOutOfBoundsException;
 import taskmaster.exceptions.EmptyTodoTaskException;
 import taskmaster.exceptions.EventCommandMissingInputException;
 import taskmaster.exceptions.EventCommandWrongSubCommandException;
+import taskmaster.exceptions.MarkCommandMissingInputException;
 import taskmaster.exceptions.MarkUnmarkOutOfBoundsException;
+import taskmaster.exceptions.UnmarkCommandMissingInputException;
 
 public class TaskMaster {
     // Display all saved tasks
@@ -23,11 +25,19 @@ public class TaskMaster {
     }
 
     // Mark a task
-    public static void markTask(ArrayList<Task> tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
+    public static void markTask(ArrayList<Task> tasks, String userInput, String spacing)
+            throws MarkCommandMissingInputException, MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_MARK = 4;
 
-        // Separate task from command & Get index to mark in type int
+        // Separate task from command
         String taskToMark = userInput.substring(LENGTH_OF_MARK).trim();
+
+        // Error Handling
+        if (taskToMark.isEmpty()) {
+            throw new MarkCommandMissingInputException();
+        }
+
+        // Get index to mark in type int
         int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
 
         // Error Handling
@@ -42,11 +52,19 @@ public class TaskMaster {
     }
 
     // Unmark a task
-    public static void unmarkTask(ArrayList<Task> tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
+    public static void unmarkTask(ArrayList<Task> tasks, String userInput, String spacing)
+            throws MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException {
         final int LENGTH_OF_UNMARK = 6;
 
-        // Separate task from command & Get index to unmark in type int
+        // Separate task from command
         String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK).trim();
+
+        // Error Handling
+        if (taskToUnmark.isEmpty()) {
+            throw new UnmarkCommandMissingInputException();
+        }
+
+        // Get index to unmark in type int
         int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
 
         // Error Handling
@@ -243,7 +261,8 @@ public class TaskMaster {
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
             DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
             EmptyTodoTaskException, EventCommandMissingInputException,
-            EventCommandWrongSubCommandException, MarkUnmarkOutOfBoundsException {
+            EventCommandWrongSubCommandException, MarkUnmarkOutOfBoundsException,
+            MarkCommandMissingInputException, UnmarkCommandMissingInputException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -334,6 +353,20 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Handle Empty field for mark
+    public static void handleMarkCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task_number>!!!");
+        System.out.println("Please try again with the format: mark <task_number>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for unmark
+    public static void handleUnmarkCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task_number>!!!");
+        System.out.println("Please try again with the format: unmark <task_number>");
+        System.out.print(spacing);
+    }
+
     // Main Method
     public static void main(String[] args) {
         // Create Constants
@@ -355,6 +388,7 @@ public class TaskMaster {
         while (!userInput.startsWith("bye")) {
             try {
                 handleCommand(tasks, userInput, SPACING);
+                
             } catch (DeadlineCommandMissingInputException e) {
                 handleDeadlineCommandMissingInputException(SPACING);
             } catch (DeadlineCommandWrongSubCommandException e) {
@@ -371,6 +405,10 @@ public class TaskMaster {
                 handleEventCommandWrongSubCommandException(SPACING);
             } catch (MarkUnmarkOutOfBoundsException e) {
                 handleMarkUnmarkOutOfBoundsException(SPACING);
+            } catch (MarkCommandMissingInputException e) {
+                handleMarkCommandMissingInputException(SPACING);
+            } catch (UnmarkCommandMissingInputException e) {
+                handleUnmarkCommandMissingInputException(SPACING);
             }
 
             // Get next input
