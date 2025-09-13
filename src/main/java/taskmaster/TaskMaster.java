@@ -1,5 +1,6 @@
 package taskmaster;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import taskmaster.exceptions.DeadlineCommandMissingInputException;
@@ -11,16 +12,16 @@ import taskmaster.exceptions.MarkUnmarkOutOfBoundsException;
 
 public class TaskMaster {
     // Display all saved tasks
-    public static void listTasks(Task[] tasks, String spacing) {
+    public static void listTasks(ArrayList<Task> tasks, String spacing) {
         System.out.print(spacing);
         for (int i = 0; i < Task.numberOfTasks; i += 1) {
-            System.out.println((i + 1) + "." + tasks[i].getStatus());
+            System.out.println((i + 1) + "." + tasks.get(i).getStatus());
         }
         System.out.print(spacing);
     }
 
     // Mark a task
-    public static void markTask(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
+    public static void markTask(ArrayList<Task> tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_MARK = 4;
 
         // Separate task from command & Get index to mark in type int
@@ -33,13 +34,13 @@ public class TaskMaster {
         }
 
         // Set Task to done & Output
-        tasks[taskToMarkIndex].setDone();
+        tasks.get(taskToMarkIndex).setDone();
         System.out.println(spacing + "Nice! I've marked this task as done:");
-        System.out.print(tasks[taskToMarkIndex].getStatus() + "\n" + spacing);
+        System.out.print(tasks.get(taskToMarkIndex).getStatus() + "\n" + spacing);
     }
 
     // Unmark a task
-    public static void unmarkTask(Task[] tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
+    public static void unmarkTask(ArrayList<Task> tasks, String userInput, String spacing) throws MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_UNMARK = 6;
 
         // Separate task from command & Get index to unmark in type int
@@ -52,9 +53,9 @@ public class TaskMaster {
         }
 
         // Set Task to not done & Output
-        tasks[taskToUnmarkIndex].setUndone();
+        tasks.get(taskToUnmarkIndex).setUndone();
         System.out.println(spacing + "OK! I've marked this task as not done yet:");
-        System.out.print(tasks[taskToUnmarkIndex].getStatus() + "\n" + spacing);
+        System.out.print(tasks.get(taskToUnmarkIndex).getStatus() + "\n" + spacing);
     }
 
     // Start Message
@@ -96,7 +97,7 @@ public class TaskMaster {
     }
 
     // Add ToDo
-    public static void addToDo(Task[] tasks, String userInput, String spacing) throws EmptyTodoTaskException {
+    public static void addToDo(ArrayList<Task> tasks, String userInput, String spacing) throws EmptyTodoTaskException {
         final int LENGTH_OF_TODO = 4;
 
         // Separate task from command
@@ -107,18 +108,18 @@ public class TaskMaster {
             throw new EmptyTodoTaskException();
         }
 
-        // Add to task array
-        tasks[Task.numberOfTasks] = new ToDo(toDoTask);
+        // Add to task ArrayList
+        tasks.add(new ToDo(toDoTask));
 
         // Output
-        addTaskOutput(tasks[Task.numberOfTasks], spacing);
+        addTaskOutput(tasks.get(Task.numberOfTasks), spacing);
 
         // Update number of tasks
         Task.numberOfTasks++;
     }
 
     // Add Deadline
-    public static void addDeadline(Task[] tasks, String userInput, String spacing)
+    public static void addDeadline(ArrayList<Task> tasks, String userInput, String spacing)
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException {
         final int LENGTH_OF_DEADLINE = 8;
         final int LENGTH_OF_BY = 2;
@@ -145,18 +146,18 @@ public class TaskMaster {
             throw new DeadlineCommandMissingInputException();
         }
 
-        // Add to task array
-        tasks[Task.numberOfTasks] = new Deadline(taskParameters[0], taskParameters[1]);
+        // Add to task ArrayList
+        tasks.add(new Deadline(taskParameters[0], taskParameters[1]));
 
         // Output
-        addTaskOutput(tasks[Task.numberOfTasks], spacing);
+        addTaskOutput(tasks.get(Task.numberOfTasks), spacing);
 
         // Update number of tasks
         Task.numberOfTasks++;
     }
 
     // Add Event
-    public static void addEvent(Task[] tasks, String userInput, String spacing)
+    public static void addEvent(ArrayList<Task> tasks, String userInput, String spacing)
             throws EventCommandMissingInputException, EventCommandWrongSubCommandException {
         final int LENGTH_OF_EVENT = 5;
         final int LENGTH_OF_FROM = 4;
@@ -186,19 +187,18 @@ public class TaskMaster {
             throw new EventCommandMissingInputException();
         }
 
-        // Add to task array
-        tasks[Task.numberOfTasks] = new Event(taskParameters[0], taskParameters[1],
-                taskParameters[2]);
+        // Add to task ArrayList
+        tasks.add(new Event(taskParameters[0], taskParameters[1], taskParameters[2]));
 
         // Output
-        addTaskOutput(tasks[Task.numberOfTasks], spacing);
+        addTaskOutput(tasks.get(Task.numberOfTasks), spacing);
 
         // Update number of tasks
         Task.numberOfTasks++;
     }
 
     // Handle Command
-    public static void handleCommand(Task[] tasks, String userInput, String spacing)
+    public static void handleCommand(ArrayList<Task> tasks, String userInput, String spacing)
             throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException,
             DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
             EventCommandMissingInputException, EventCommandWrongSubCommandException {
@@ -278,11 +278,10 @@ public class TaskMaster {
     public static void main(String[] args) {
         // Create Constants
         final int LENGTH_OF_SPACING = 70;
-        final int MAX_SIZE_OF_TASK_LIST = 100;
         final String SPACING = "⎯".repeat(LENGTH_OF_SPACING) + "\n";
 
-        // Create Task List
-        Task[] tasks = new Task[MAX_SIZE_OF_TASK_LIST];
+        // Create Task ArrayList
+        ArrayList<Task> tasks = new ArrayList<>();
 
         // Opening message output
         startMessage(SPACING);
