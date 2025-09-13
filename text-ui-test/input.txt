@@ -26,4 +26,17 @@ event /from Sunday /to
 event Holiday /from Sunday
 event Holiday /fro Sunday /to Monday
 event Holiday /from Sunday /by Monday
+list
+mark
+unmark
+mark 1
+list
+delete 0
+delete -1
+delete 10
+list
+delete 1
+list
+delete 3
+list
 bye
