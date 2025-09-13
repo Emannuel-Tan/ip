@@ -83,6 +83,13 @@ public class TaskMaster {
         System.out.print("Now you have " + (Task.numberOfTasks + 1) + " task(s) in the list\n" + spacing);
     }
 
+    // Output Message after deletion of a Task
+    public static void deleteTaskOutput(Task task, String spacing) {
+        System.out.println(spacing + "Understood. I have deleted the task:");
+        System.out.println("  " + task.getStatus());
+        System.out.print("Now you have " + (Task.numberOfTasks - 1) + " task(s) in the list\n" + spacing);
+    }
+
     // Output Message if unknown command given
     public static void unknownCommand(String spacing) {
         System.out.println(spacing + "Unknown command given, please use one of the following commands:");
@@ -197,6 +204,26 @@ public class TaskMaster {
         Task.numberOfTasks++;
     }
 
+    // Delete Task
+    public static void deleteTask(ArrayList<Task> tasks, String userInput, String spacing) {
+        final int LENGTH_OF_DELETE = 6;
+
+        // Separate index from command
+        String taskToDelete = userInput.substring(LENGTH_OF_DELETE).trim();
+        int taskToDeleteIndex = Integer.parseInt(taskToDelete) - 1;
+
+        // TODO Error Handling
+
+        // Output
+        deleteTaskOutput(tasks.get(taskToDeleteIndex), spacing);
+
+        // Delete task from ArrayList
+        tasks.remove(taskToDeleteIndex);
+
+        // Update number of tasks
+        Task.numberOfTasks--;
+    }
+
     // Handle Command
     public static void handleCommand(ArrayList<Task> tasks, String userInput, String spacing)
             throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException,
@@ -225,6 +252,10 @@ public class TaskMaster {
         } else if (userInput.startsWith("event")) {
             // Add Event
             addEvent(tasks, userInput, spacing);
+
+        } else if (userInput.startsWith("delete")) {
+            // Delete a task
+            deleteTask(tasks, userInput, spacing);
 
         } else {
             // Output possible commands
