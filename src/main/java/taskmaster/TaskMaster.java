@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import taskmaster.exceptions.DeadlineCommandMissingInputException;
 import taskmaster.exceptions.DeadlineCommandWrongSubCommandException;
+import taskmaster.exceptions.DeleteCommandMissingInputException;
+import taskmaster.exceptions.DeleteCommandOutOfBoundsException;
 import taskmaster.exceptions.EmptyTodoTaskException;
 import taskmaster.exceptions.EventCommandMissingInputException;
 import taskmaster.exceptions.EventCommandWrongSubCommandException;
@@ -206,14 +208,25 @@ public class TaskMaster {
     }
 
     // Delete Task
-    public static void deleteTask(ArrayList<Task> tasks, String userInput, String spacing) {
+    public static void deleteTask(ArrayList<Task> tasks, String userInput, String spacing)
+            throws DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException {
         final int LENGTH_OF_DELETE = 6;
 
         // Separate index from command
         String taskToDelete = userInput.substring(LENGTH_OF_DELETE).trim();
+
+        // Error Handling
+        if (taskToDelete.isEmpty()) {
+            throw new DeleteCommandMissingInputException();
+        }
+
+        // Get Index in int
         int taskToDeleteIndex = Integer.parseInt(taskToDelete) - 1;
 
-        // TODO Error Handling
+        // Error Handling
+        if (taskToDeleteIndex < 0 || taskToDeleteIndex >= Task.numberOfTasks) {
+            throw new DeleteCommandOutOfBoundsException();
+        }
 
         // Output
         deleteTaskOutput(tasks.get(taskToDeleteIndex), spacing);
@@ -227,9 +240,10 @@ public class TaskMaster {
 
     // Handle Command
     public static void handleCommand(ArrayList<Task> tasks, String userInput, String spacing)
-            throws MarkUnmarkOutOfBoundsException, EmptyTodoTaskException,
-            DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
-            EventCommandMissingInputException, EventCommandWrongSubCommandException {
+            throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
+            DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
+            EmptyTodoTaskException, EventCommandMissingInputException,
+            EventCommandWrongSubCommandException, MarkUnmarkOutOfBoundsException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -264,21 +278,21 @@ public class TaskMaster {
         }
     }
 
-    // Handle Mark & Unmark non-existing task exception
+    // Handle Mark & Unmark non-existing task
     public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
         System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
         System.out.println("Please try again with a valid number!");
         System.out.print(spacing);
     }
 
-    // Handle Empty field for task in ToDo creation exception
+    // Handle Empty field for task in ToDo creation
     public static void handleEmptyTodoTaskException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task>!!!");
         System.out.println("Please try again with the format: todo <task>");
         System.out.print(spacing);
     }
 
-    // Handle Empty field for task or deadline in Deadline creation exception
+    // Handle Empty field for task or deadline in Deadline creation
     public static void handleDeadlineCommandMissingInputException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <deadline>!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
@@ -292,7 +306,7 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
-    // Handle Empty field for task or from or to in Event creation exception
+    // Handle Empty field for task or from or to in Event creation
     public static void handleEventCommandMissingInputException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
         System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
@@ -303,6 +317,20 @@ public class TaskMaster {
     public static void handleEventCommandWrongSubCommandException(String spacing) {
         System.out.println(spacing + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
         System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(spacing);
+    }
+
+    // Handle Empty field for delete
+    public static void handleDeleteCommandMissingInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Missing <task_number>!!!");
+        System.out.println("Please try again with the format: delete <task_number>");
+        System.out.print(spacing);
+    }
+
+    // Handle delete non-existing task
+    public static void handleDeleteCommandOutOfBoundsException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Task to delete does not exist!!!");
+        System.out.println("Please try again with a valid number");
         System.out.print(spacing);
     }
 
@@ -327,18 +355,22 @@ public class TaskMaster {
         while (!userInput.startsWith("bye")) {
             try {
                 handleCommand(tasks, userInput, SPACING);
-            } catch (MarkUnmarkOutOfBoundsException e) {
-                handleMarkUnmarkOutOfBoundsException(SPACING);
-            } catch (EmptyTodoTaskException e) {
-                handleEmptyTodoTaskException(SPACING);
             } catch (DeadlineCommandMissingInputException e) {
                 handleDeadlineCommandMissingInputException(SPACING);
             } catch (DeadlineCommandWrongSubCommandException e) {
                 handleDeadlineCommandWrongSubCommandException(SPACING);
+            } catch (DeleteCommandMissingInputException e) {
+                handleDeleteCommandMissingInputException(SPACING);
+            } catch (DeleteCommandOutOfBoundsException e) {
+                handleDeleteCommandOutOfBoundsException(SPACING);
+            } catch (EmptyTodoTaskException e) {
+                handleEmptyTodoTaskException(SPACING);
             } catch (EventCommandMissingInputException e) {
                 handleEventCommandMissingInputException(SPACING);
             } catch (EventCommandWrongSubCommandException e) {
                 handleEventCommandWrongSubCommandException(SPACING);
+            } catch (MarkUnmarkOutOfBoundsException e) {
+                handleMarkUnmarkOutOfBoundsException(SPACING);
             }
 
             // Get next input
