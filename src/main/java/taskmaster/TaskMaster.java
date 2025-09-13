@@ -7,12 +7,15 @@ import taskmaster.exceptions.DeadlineCommandMissingInputException;
 import taskmaster.exceptions.DeadlineCommandWrongSubCommandException;
 import taskmaster.exceptions.DeleteCommandMissingInputException;
 import taskmaster.exceptions.DeleteCommandOutOfBoundsException;
+import taskmaster.exceptions.DeleteCommandTooManyInputException;
 import taskmaster.exceptions.EmptyTodoTaskException;
 import taskmaster.exceptions.EventCommandMissingInputException;
 import taskmaster.exceptions.EventCommandWrongSubCommandException;
 import taskmaster.exceptions.MarkCommandMissingInputException;
+import taskmaster.exceptions.MarkCommandTooManyInputException;
 import taskmaster.exceptions.MarkUnmarkOutOfBoundsException;
 import taskmaster.exceptions.UnmarkCommandMissingInputException;
+import taskmaster.exceptions.UnmarkCommandTooManyInputException;
 
 public class TaskMaster {
     // Display all saved tasks
@@ -26,7 +29,8 @@ public class TaskMaster {
 
     // Mark a task
     public static void markTask(ArrayList<Task> tasks, String userInput, String spacing)
-            throws MarkCommandMissingInputException, MarkUnmarkOutOfBoundsException {
+            throws MarkCommandMissingInputException, MarkCommandTooManyInputException,
+            MarkUnmarkOutOfBoundsException {
         final int LENGTH_OF_MARK = 4;
 
         // Separate task from command
@@ -38,7 +42,12 @@ public class TaskMaster {
         }
 
         // Get index to mark in type int
-        int taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+        int taskToMarkIndex;
+        try {
+            taskToMarkIndex = Integer.parseInt(taskToMark) - 1;
+        } catch (NumberFormatException e) {
+            throw new MarkCommandTooManyInputException();
+        }
 
         // Error Handling
         if (taskToMarkIndex < 0 || taskToMarkIndex >= Task.numberOfTasks) {
@@ -53,7 +62,8 @@ public class TaskMaster {
 
     // Unmark a task
     public static void unmarkTask(ArrayList<Task> tasks, String userInput, String spacing)
-            throws MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException {
+            throws MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException,
+            UnmarkCommandTooManyInputException {
         final int LENGTH_OF_UNMARK = 6;
 
         // Separate task from command
@@ -65,7 +75,12 @@ public class TaskMaster {
         }
 
         // Get index to unmark in type int
-        int taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+        int taskToUnmarkIndex;
+        try {
+            taskToUnmarkIndex = Integer.parseInt(taskToUnmark) - 1;
+        } catch (NumberFormatException e) {
+            throw new UnmarkCommandTooManyInputException();
+        }
 
         // Error Handling
         if (taskToUnmarkIndex < 0 || taskToUnmarkIndex >= Task.numberOfTasks) {
@@ -260,9 +275,11 @@ public class TaskMaster {
     public static void handleCommand(ArrayList<Task> tasks, String userInput, String spacing)
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
             DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
-            EmptyTodoTaskException, EventCommandMissingInputException,
-            EventCommandWrongSubCommandException, MarkCommandMissingInputException,
-            MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException {
+            DeleteCommandTooManyInputException, EmptyTodoTaskException,
+            EventCommandMissingInputException, EventCommandWrongSubCommandException,
+            MarkCommandMissingInputException, MarkCommandTooManyInputException,
+            MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException,
+            UnmarkCommandTooManyInputException {
         if (userInput.startsWith("list")) {
             // List all tasks
             listTasks(tasks, spacing);
@@ -325,6 +342,13 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Handle delete too many inputs
+    public static void handleDeleteCommandTooManyInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Too Many Input Fields!!!");
+        System.out.println("Please try again with the format: delete <task_number>");
+        System.out.print(spacing);
+    }
+
     // Handle Empty field for task in ToDo creation
     public static void handleEmptyTodoTaskException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task>!!!");
@@ -353,6 +377,13 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Handle mark too many inputs
+    public static void handleMarkCommandTooManyInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Too Many Input Fields!!!");
+        System.out.println("Please try again with the format: mark <task_number>");
+        System.out.print(spacing);
+    }
+
     // Handle Mark & Unmark non-existing task
     public static void handleMarkUnmarkOutOfBoundsException(String spacing) {
         System.out.println(spacing + "OOPS!!! Task to mark/unmark does not exist!");
@@ -363,6 +394,13 @@ public class TaskMaster {
     // Handle Empty field for unmark
     public static void handleUnmarkCommandMissingInputException(String spacing) {
         System.out.println(spacing + "OOPS!!! Missing <task_number>!!!");
+        System.out.println("Please try again with the format: unmark <task_number>");
+        System.out.print(spacing);
+    }
+
+    // Handle unmark too many inputs
+    public static void handleUnmarkCommandTooManyInputException(String spacing) {
+        System.out.println(spacing + "OOPS!!! Too Many Input Fields!!!");
         System.out.println("Please try again with the format: unmark <task_number>");
         System.out.print(spacing);
     }
@@ -397,6 +435,8 @@ public class TaskMaster {
                 handleDeleteCommandMissingInputException(SPACING);
             } catch (DeleteCommandOutOfBoundsException e) {
                 handleDeleteCommandOutOfBoundsException(SPACING);
+            } catch (DeleteCommandTooManyInputException e) {
+                handleDeleteCommandTooManyInputException(SPACING);
             } catch (EmptyTodoTaskException e) {
                 handleEmptyTodoTaskException(SPACING);
             } catch (EventCommandMissingInputException e) {
@@ -405,10 +445,14 @@ public class TaskMaster {
                 handleEventCommandWrongSubCommandException(SPACING);
             } catch (MarkCommandMissingInputException e) {
                 handleMarkCommandMissingInputException(SPACING);
+            } catch (MarkCommandTooManyInputException e) {
+                handleMarkCommandTooManyInputException(SPACING);
             } catch (MarkUnmarkOutOfBoundsException e) {
                 handleMarkUnmarkOutOfBoundsException(SPACING);
             } catch (UnmarkCommandMissingInputException e) {
                 handleUnmarkCommandMissingInputException(SPACING);
+            } catch (UnmarkCommandTooManyInputException e) {
+                handleUnmarkCommandTooManyInputException(SPACING);
             }
 
             // Get next input
