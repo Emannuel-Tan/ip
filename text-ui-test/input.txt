@@ -39,4 +39,8 @@ delete 1
 list
 delete 3
 list
+mark 1 1
+unmark 1 1
+delete 1 1
+list
 bye
