@@ -1,5 +1,10 @@
 package taskmaster;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -411,6 +416,87 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
+    // Create a new file
+    public static void createNewFile(File fileName) {
+        try {
+            fileName.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error in creating file");
+            e.printStackTrace();
+        }
+    }
+
+    // Get input from file
+    public static void getInput(File inputFile, ArrayList<Task> tasks) {
+        try {
+            Scanner fileScanner = new Scanner(inputFile);
+            while (fileScanner.hasNext()) {
+                String[] inputFromFile = fileScanner.nextLine().split("\\|");
+
+                // Add tasks
+                if (inputFromFile[0].equals("T")) {
+                    tasks.add(new ToDo(inputFromFile[2]));
+                } else if (inputFromFile[0].equals("D")) {
+                    tasks.add(new Deadline(inputFromFile[2], inputFromFile[3]));
+                } else if (inputFromFile[0].equals("E")) {
+                    tasks.add(new Event(inputFromFile[2], inputFromFile[3], inputFromFile[4]));
+                } else {
+                    System.out.println("File Corrupted");
+                    break;
+                }
+
+                // Update task status
+                if (inputFromFile[1].equals("1")) {
+                    tasks.get(Task.numberOfTasks).setDone();
+                }
+                Task.numberOfTasks++;
+            }
+        } catch (FileNotFoundException e) {
+            createNewFile(inputFile);
+        }
+    }
+
+    // Convert task into String output for export
+    public static String taskToStringForExport(Task task) {
+        String output = "";
+
+        if (task.getType() == TaskType.T) {
+            output += "T";
+        } else if (task.getType() == TaskType.D) {
+            output += "D";
+        } else if (task.getType() == TaskType.E) {
+            output += "E";
+        }
+
+        output += (task.isDone) ? "|1|" : "|0|";
+        output += task.description;
+
+        if (task.getType() == TaskType.D) {
+            output += "|" + task.getBy();
+        } else if (task.getType() == TaskType.E) {
+            output += "|" + task.getFrom() + "|" + task.getTo();
+        }
+
+        return output;
+    }
+
+    // Write output to file
+    public static void writeToFile(File filename, ArrayList<Task> tasks) {
+        try {
+            FileWriter outputFileWriter = new FileWriter(filename);
+
+            for (int i = 0; i < Task.numberOfTasks; i++) {
+                String output = taskToStringForExport(tasks.get(i));
+                output += (i < Task.numberOfTasks - 1) ? System.lineSeparator() : "";
+                outputFileWriter.write(output);
+            }
+
+            outputFileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error on export: " + e.getMessage());
+        }
+    }
+
     // Main Method
     public static void main(String[] args) {
         // Create Constants
@@ -423,7 +509,13 @@ public class TaskMaster {
         // Opening message output
         startMessage(SPACING);
 
-        // Take Input
+        // Find input data,
+        // if found, read data
+        // if not found, create file
+        File inputFile = new File("src/main/java/taskmaster/data/TaskMaster.txt");
+        getInput(inputFile, tasks);
+
+        // Take User Input
         String userInput;
         Scanner input = new Scanner(System.in);
         userInput = input.nextLine().trim();
@@ -467,5 +559,8 @@ public class TaskMaster {
 
         // Ending message output
         endMessage(SPACING);
+
+        // Output data to file
+        writeToFile(inputFile, tasks);
     }
 }

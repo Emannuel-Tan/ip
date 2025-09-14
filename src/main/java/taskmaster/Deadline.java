@@ -14,4 +14,8 @@ public class Deadline extends ToDo {
     public String getStatus() {
         return super.getStatus() + " (by: " + by + ")";
     }
+
+    public String getBy() {
+        return by;
+    }
 }

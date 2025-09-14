@@ -13,4 +13,23 @@ public class ToDo extends Task {
     public String getStatus() {
         return "[" + type + "]" + super.getStatus();
     }
+
+    public TaskType getType() {
+        return type;
+    }
+
+    @Override
+    public String getBy() {
+        return "";
+    }
+
+    @Override
+    public String getFrom() {
+        return "";
+    }
+
+    @Override
+    public String getTo() {
+        return "";
+    }
 }
