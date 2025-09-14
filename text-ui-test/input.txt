@@ -43,4 +43,6 @@ mark 1 1
 unmark 1 1
 delete 1 1
 list
+delete 1
+delete 1
 bye
