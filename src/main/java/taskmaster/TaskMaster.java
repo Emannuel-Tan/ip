@@ -511,7 +511,7 @@ public class TaskMaster {
         // Find input data,
         // if found, read data
         // if not found, create file
-        File inputFile = new File("./src/main/java/taskmaster/data/TaskMaster.txt");
+        File inputFile = new File("./data/TaskMaster.txt");
         getInput(inputFile, tasks);
 
         // Take User Input
