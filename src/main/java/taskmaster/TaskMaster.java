@@ -421,8 +421,7 @@ public class TaskMaster {
         try {
             fileName.createNewFile();
         } catch (IOException e) {
-            System.out.println("Error in creating file");
-            e.printStackTrace();
+            System.out.println("Error in creating file: " + e.getMessage());
         }
     }
 
@@ -501,7 +500,7 @@ public class TaskMaster {
     public static void main(String[] args) {
         // Create Constants
         final int LENGTH_OF_SPACING = 70;
-        final String SPACING = "⎯".repeat(LENGTH_OF_SPACING) + "\n";
+        final String SPACING = "-".repeat(LENGTH_OF_SPACING) + "\n";
 
         // Create Task ArrayList
         ArrayList<Task> tasks = new ArrayList<>();
@@ -512,7 +511,7 @@ public class TaskMaster {
         // Find input data,
         // if found, read data
         // if not found, create file
-        File inputFile = new File("src/main/java/taskmaster/data/TaskMaster.txt");
+        File inputFile = new File("./src/main/java/taskmaster/data/TaskMaster.txt");
         getInput(inputFile, tasks);
 
         // Take User Input
