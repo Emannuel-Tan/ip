@@ -16,4 +16,12 @@ public class Event extends ToDo {
     public String getStatus() {
         return super.getStatus() + " (from: " + from + " to: " + to + ")";
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 }

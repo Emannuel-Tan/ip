@@ -1,6 +1,6 @@
 package taskmaster;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -36,4 +36,12 @@ public class Task {
     public void setUndone() {
         isDone = false;
     }
+
+    public abstract TaskType getType();
+
+    public abstract String getBy();
+
+    public abstract String getFrom();
+
+    public abstract String getTo();
 }
