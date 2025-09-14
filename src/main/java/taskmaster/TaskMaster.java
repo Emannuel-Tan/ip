@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -416,10 +420,15 @@ public class TaskMaster {
         System.out.print(spacing);
     }
 
-    // Create a new file
+    // Create directory and file if not exist
     public static void createNewFile(File fileName) {
+        String filePathString = "./data/TaskMaster.txt";
+        Path filePath = Paths.get(filePathString);
+
         try {
-            fileName.createNewFile();
+            // Create data directory and TaskMaster.txt file
+            Files.createDirectories(filePath.getParent());
+            Files.createFile(filePath);
         } catch (IOException e) {
             System.out.println("Error in creating file: " + e.getMessage());
         }
