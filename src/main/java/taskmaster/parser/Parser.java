@@ -8,6 +8,7 @@ import taskmaster.exceptions.DeleteCommandTooManyInputException;
 import taskmaster.exceptions.EmptyTodoTaskException;
 import taskmaster.exceptions.EventCommandMissingInputException;
 import taskmaster.exceptions.EventCommandWrongSubCommandException;
+import taskmaster.exceptions.FindCommandMissingInputException;
 import taskmaster.exceptions.MarkCommandMissingInputException;
 import taskmaster.exceptions.MarkCommandTooManyInputException;
 import taskmaster.exceptions.MarkUnmarkOutOfBoundsException;
@@ -31,9 +32,9 @@ public class Parser {
             DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
             DeleteCommandTooManyInputException, EmptyTodoTaskException,
             EventCommandMissingInputException, EventCommandWrongSubCommandException,
-            MarkCommandMissingInputException, MarkCommandTooManyInputException,
-            MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException,
-            UnmarkCommandTooManyInputException {
+            FindCommandMissingInputException, MarkCommandMissingInputException,
+            MarkCommandTooManyInputException, MarkUnmarkOutOfBoundsException,
+            UnmarkCommandMissingInputException, UnmarkCommandTooManyInputException {
         if (userInput.startsWith("list")) {
             taskList.listTasks();
 
@@ -57,6 +58,7 @@ public class Parser {
 
         } else if (userInput.startsWith("find")) {
             taskList.findTask(userInput);
+
         } else {
             ui.possibleCommandsOutput();
         }
@@ -82,6 +84,8 @@ public class Parser {
             ui.handleEventCommandMissingInputException();
         } catch (EventCommandWrongSubCommandException e) {
             ui.handleEventCommandWrongSubCommandException();
+        } catch (FindCommandMissingInputException e) {
+            ui.handleFindCommandMissingInputException();
         } catch (MarkCommandMissingInputException e) {
             ui.handleMarkCommandMissingInputException();
         } catch (MarkCommandTooManyInputException e) {

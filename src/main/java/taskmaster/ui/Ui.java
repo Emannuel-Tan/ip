@@ -116,28 +116,32 @@ public class Ui {
 
     // Handle Empty field for task or deadline in Deadline creation
     public void handleDeadlineCommandMissingInputException() {
-        System.out.println(SPACING + "OOPS!!! Missing <task> and/or Missing <deadline>!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <task> and/or Missing <deadline>!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
         System.out.print(SPACING);
     }
 
     // Handle if subcommand /by is missing or incorrect
     public void handleDeadlineCommandWrongSubCommandException() {
-        System.out.println(SPACING + "OOPS!!! Subcommand /by is missing or wrong!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Subcommand /by is missing or wrong!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
         System.out.print(SPACING);
     }
 
     // Handle Empty field for delete
     public void handleDeleteCommandMissingInputException() {
-        System.out.println(SPACING + "OOPS!!! Missing <task_number>!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <task_number>!!!");
         System.out.println("Please try again with the format: delete <task_number>");
         System.out.print(SPACING);
     }
 
     // Handle delete non-existing task
     public void handleDeleteCommandOutOfBoundsException() {
-        System.out.println(SPACING + "OOPS!!! Task to delete does not exist!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Task to delete does not exist!!!");
         System.out.println("Please try again with a valid number");
         System.out.print(SPACING);
     }
@@ -151,56 +155,72 @@ public class Ui {
 
     // Handle Empty field for task in ToDo creation
     public void handleEmptyTodoTaskException() {
-        System.out.println(SPACING + "OOPS!!! Missing <task>!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <task>!!!");
         System.out.println("Please try again with the format: todo <task>");
         System.out.print(SPACING);
     }
 
     // Handle Empty field for task or from or to in Event creation
     public void handleEventCommandMissingInputException() {
-        System.out.println(SPACING + "OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
         System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
         System.out.print(SPACING);
     }
 
     // Handle if subcommand /from and/or /to is missing or incorrect
     public void handleEventCommandWrongSubCommandException() {
-        System.out.println(SPACING + "OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Subcommand /from and/or /to is missing or wrong!!!");
         System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.print(SPACING);
+    }
+
+    // Handle Empty field for find
+    public void handleFindCommandMissingInputException() {
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <keyword> !!!");
+        System.out.println("Please try again with the format: find <keyword>");
         System.out.print(SPACING);
     }
 
     // Handle Empty field for mark
     public void handleMarkCommandMissingInputException() {
-        System.out.println(SPACING + "OOPS!!! Missing <task_number>!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <task_number>!!!");
         System.out.println("Please try again with the format: mark <task_number>");
         System.out.print(SPACING);
     }
 
     // Handle mark too many inputs
     public void handleMarkCommandTooManyInputException() {
-        System.out.println(SPACING + "OOPS!!! Too Many Input Fields!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Too Many Input Fields!!!");
         System.out.println("Please try again with the format: mark <task_number>");
         System.out.print(SPACING);
     }
 
     // Handle Mark & Unmark non-existing task
     public void handleMarkUnmarkOutOfBoundsException() {
-        System.out.println(SPACING + "OOPS!!! Task to mark/unmark does not exist!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Task to mark/unmark does not exist!");
         System.out.println("Please try again with a valid number!");
         System.out.print(SPACING);
     }
 
     // Handle Empty field for unmark
     public void handleUnmarkCommandMissingInputException() {
-        System.out.println(SPACING + "OOPS!!! Missing <task_number>!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Missing <task_number>!!!");
         System.out.println("Please try again with the format: unmark <task_number>");
         System.out.print(SPACING);
     }
 
     // Handle unmark too many inputs
     public void handleUnmarkCommandTooManyInputException() {
-        System.out.println(SPACING + "OOPS!!! Too Many Input Fields!!!");
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Too Many Input Fields!!!");
         System.out.println("Please try again with the format: unmark <task_number>");
         System.out.print(SPACING);
     }
