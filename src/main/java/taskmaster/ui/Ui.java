@@ -1,5 +1,6 @@
 package taskmaster.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import taskmaster.Task;
@@ -11,10 +12,6 @@ public class Ui {
     protected final Scanner input = new Scanner(System.in);
 
     public Ui() {
-    }
-
-    public String getSpacing() {
-        return SPACING;
     }
 
     // Get input from user
@@ -38,6 +35,31 @@ public class Ui {
     // End Message
     public void endMessage() {
         System.out.print(SPACING + "Bye. Hope to see you again soon!\n" + SPACING);
+    }
+
+    // Lists all Tasks
+    public void listTasks(ArrayList<Task> tasks) {
+        System.out.print(SPACING);
+        for (int i = 0; i < Task.numberOfTasks; i += 1) {
+            System.out.println((i + 1) + "." + tasks.get(i).getStatus());
+        }
+        System.out.print(SPACING);
+    }
+
+    // Mark Task Output
+    public void markTaskOutput(Task task) {
+        System.out.print(SPACING);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task.getStatus());
+        System.out.print(SPACING);
+    }
+
+    // Unmark Task Output
+    public void unmarkTaskOutput(Task task) {
+        System.out.print(SPACING);
+        System.out.println("OK! I've marked this task as not done yet:");
+        System.out.println(task.getStatus());
+        System.out.print(SPACING);
     }
 
     // Output Message after addition of a Task
