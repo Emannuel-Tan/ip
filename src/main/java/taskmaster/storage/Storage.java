@@ -18,16 +18,19 @@ import taskmaster.Task;
 import taskmaster.TaskType;
 import taskmaster.ToDo;
 
+import taskmaster.ui.Ui;
+
 public class Storage {
     protected String filePathString;
     protected File inputFile;
     protected Path filePath;
+    protected Ui ui;
 
-    // Constructor
-    public Storage(String filePathString) {
+    public Storage(String filePathString, Ui ui) {
         this.filePathString = filePathString;
         inputFile = new File(filePathString);
         filePath = Paths.get(filePathString);
+        this.ui = ui;
     }
 
     // Create directory and file if not exist
@@ -37,11 +40,10 @@ public class Storage {
             Files.createDirectories(filePath.getParent());
             Files.createFile(filePath);
         } catch (IOException e) {
-            System.out.println("Error in creating file: " + e.getMessage());
+            ui.fileCreationErrorMessage(e);
         }
     }
 
-    // Get input from file
     public ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner fileScanner = null;
@@ -62,7 +64,7 @@ public class Storage {
             } else if (inputFromFile[0].equals("E")) {
                 tasks.add(new Event(inputFromFile[2], inputFromFile[3], inputFromFile[4]));
             } else {
-                System.out.println("File Corrupted");
+                ui.fileReadErrorMessage();
                 break;
             }
 
@@ -76,7 +78,6 @@ public class Storage {
         return tasks;
     }
 
-    // Convert task into String output for export
     private String taskToStringForExport(Task task) {
         String output = "";
 
@@ -93,7 +94,6 @@ public class Storage {
         return output;
     }
 
-    // Write output to file
     public void writeToFile(ArrayList<Task> tasks) {
         try {
             FileWriter outputFileWriter = new FileWriter(inputFile);
@@ -106,7 +106,7 @@ public class Storage {
 
             outputFileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error on export: " + e.getMessage());
+            ui.fileExportErrorMessage(e);
         }
     }
 }

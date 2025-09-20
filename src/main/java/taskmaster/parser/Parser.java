@@ -26,7 +26,6 @@ public class Parser {
         this.ui = ui;
     }
 
-    // Handle Command
     private void handleCommand(String userInput)
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException,
             DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
@@ -39,32 +38,25 @@ public class Parser {
             taskList.listTasks();
 
         } else if (userInput.startsWith("mark")) {
-            // Set specified task to be done
             taskList.markTask(userInput);
 
         } else if (userInput.startsWith("unmark")) {
-            // Set specified task to be not done
             taskList.unmarkTask(userInput);
 
         } else if (userInput.startsWith("todo")) {
-            // Add ToDo
             taskList.addToDo(userInput);
 
         } else if (userInput.startsWith("deadline")) {
-            // Add Deadline
             taskList.addDeadline(userInput);
 
         } else if (userInput.startsWith("event")) {
-            // Add Event
             taskList.addEvent(userInput);
 
         } else if (userInput.startsWith("delete")) {
-            // Delete a task
             taskList.deleteTask(userInput);
 
         } else {
-            // Output possible commands
-            ui.unknownCommand();
+            ui.possibleCommandsOutput();
         }
     }
 

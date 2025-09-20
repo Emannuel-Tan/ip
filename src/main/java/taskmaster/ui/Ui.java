@@ -1,5 +1,7 @@
 package taskmaster.ui;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,15 +13,11 @@ public class Ui {
     protected final String SPACING = "-".repeat(LENGTH_OF_SPACING) + "\n";
     protected final Scanner input = new Scanner(System.in);
 
-    public Ui() {
-    }
-
     // Get input from user
     public String getNextLine() {
         return input.nextLine().trim();
     }
 
-    // Start Message
     public void startMessage() {
         final String LOGO = """
                  _____   ___   ____  |  /   |\\  /|  ___   ____  _____   ____  ___  \s
@@ -32,12 +30,22 @@ public class Ui {
         System.out.print(SPACING + "Hello I'm\n" + LOGO + "\nWhat can I do for you?\n" + SPACING);
     }
 
-    // End Message
     public void endMessage() {
         System.out.print(SPACING + "Bye. Hope to see you again soon!\n" + SPACING);
     }
 
-    // Lists all Tasks
+    public void fileCreationErrorMessage(IOException e) {
+        System.out.println("Error in creating file: " + e.getMessage());
+    }
+
+    public void fileReadErrorMessage() {
+        System.out.println("File Corrupted");
+    }
+
+    public void fileExportErrorMessage(IOException e) {
+        System.out.println("Error on export: " + e.getMessage());
+    }
+
     public void listTasks(ArrayList<Task> tasks) {
         System.out.print(SPACING);
         for (int i = 0; i < Task.numberOfTasks; i += 1) {
@@ -46,7 +54,6 @@ public class Ui {
         System.out.print(SPACING);
     }
 
-    // Mark Task Output
     public void markTaskOutput(Task task) {
         System.out.print(SPACING);
         System.out.println("Nice! I've marked this task as done:");
@@ -54,7 +61,6 @@ public class Ui {
         System.out.print(SPACING);
     }
 
-    // Unmark Task Output
     public void unmarkTaskOutput(Task task) {
         System.out.print(SPACING);
         System.out.println("OK! I've marked this task as not done yet:");
@@ -62,23 +68,21 @@ public class Ui {
         System.out.print(SPACING);
     }
 
-    // Output Message after addition of a Task
     public void addTaskOutput(Task task) {
         System.out.println(SPACING + "Added Task:");
         System.out.println("  " + task.getStatus());
         System.out.print("Now you have " + (Task.numberOfTasks + 1) + " task(s) in the list\n" + SPACING);
     }
 
-    // Output Message after deletion of a Task
     public void deleteTaskOutput(Task task) {
         System.out.println(SPACING + "Understood. I have deleted the task:");
         System.out.println("  " + task.getStatus());
         System.out.print("Now you have " + (Task.numberOfTasks - 1) + " task(s) in the list\n" + SPACING);
     }
 
-    // Output Message if unknown command given
-    public void unknownCommand() {
-        System.out.println(SPACING + "Unknown command given, please use one of the following commands:");
+    public void possibleCommandsOutput() {
+        System.out.print(SPACING);
+        System.out.println("Unknown command given, please use one of the following commands:");
         System.out.println("list: Lists all tasks");
         System.out.println("bye: Exit the program");
         System.out.println("todo <task> : Add a task with no deadline");

@@ -27,12 +27,10 @@ public abstract class Task {
         return output;
     }
 
-    // Set task to Done
     public void setDone() {
         isDone = true;
     }
 
-    // Reset task to Not Done
     public void setUndone() {
         isDone = false;
     }

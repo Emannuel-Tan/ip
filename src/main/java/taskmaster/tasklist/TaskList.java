@@ -36,12 +36,10 @@ public class TaskList {
         return tasks;
     }
 
-    // Display all saved tasks
     public void listTasks() {
         ui.listTasks(tasks);
     }
 
-    // Mark a task
     public void markTask(String userInput)
             throws MarkCommandMissingInputException, MarkCommandTooManyInputException,
             MarkUnmarkOutOfBoundsException {
@@ -73,7 +71,6 @@ public class TaskList {
         ui.markTaskOutput(tasks.get(taskToMarkIndex));
     }
 
-    // Unmark a task
     public void unmarkTask(String userInput)
             throws MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException,
             UnmarkCommandTooManyInputException {
@@ -105,7 +102,6 @@ public class TaskList {
         ui.unmarkTaskOutput(tasks.get(taskToUnmarkIndex));
     }
 
-    // Add ToDo
     public void addToDo(String userInput) throws EmptyTodoTaskException {
         final int LENGTH_OF_TODO = 4;
 
@@ -117,17 +113,13 @@ public class TaskList {
             throw new EmptyTodoTaskException();
         }
 
-        // Add to task ArrayList
         tasks.add(new ToDo(toDoTask));
 
-        // Output
         ui.addTaskOutput(tasks.get(Task.numberOfTasks));
 
-        // Update number of tasks
         Task.numberOfTasks++;
     }
 
-    // Add Deadline
     public void addDeadline(String userInput)
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException {
         final int LENGTH_OF_DEADLINE = 8;
@@ -155,17 +147,13 @@ public class TaskList {
             throw new DeadlineCommandMissingInputException();
         }
 
-        // Add to task ArrayList
         tasks.add(new Deadline(taskParameters[0], taskParameters[1]));
 
-        // Output
         ui.addTaskOutput(tasks.get(Task.numberOfTasks));
 
-        // Update number of tasks
         Task.numberOfTasks++;
     }
 
-    // Add Event
     public void addEvent(String userInput)
             throws EventCommandMissingInputException, EventCommandWrongSubCommandException {
         final int LENGTH_OF_EVENT = 5;
@@ -196,17 +184,13 @@ public class TaskList {
             throw new EventCommandMissingInputException();
         }
 
-        // Add to task ArrayList
         tasks.add(new Event(taskParameters[0], taskParameters[1], taskParameters[2]));
 
-        // Output
         ui.addTaskOutput(tasks.get(Task.numberOfTasks));
 
-        // Update number of tasks
         Task.numberOfTasks++;
     }
 
-    // Delete Task
     public void deleteTask(String userInput)
             throws DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
             DeleteCommandTooManyInputException {
@@ -233,13 +217,10 @@ public class TaskList {
             throw new DeleteCommandOutOfBoundsException();
         }
 
-        // Output
         ui.deleteTaskOutput(tasks.get(taskToDeleteIndex));
 
-        // Delete task from ArrayList
         tasks.remove(taskToDeleteIndex);
 
-        // Update number of tasks
         Task.numberOfTasks--;
     }
 }

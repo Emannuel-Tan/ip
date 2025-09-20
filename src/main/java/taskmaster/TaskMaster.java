@@ -12,7 +12,7 @@ public class TaskMaster {
         Ui ui = new Ui();
         ui.startMessage();
 
-        Storage storage = new Storage("./data/TaskMaster.txt");
+        Storage storage = new Storage("./data/TaskMaster.txt", ui);
 
         TaskList taskList = new TaskList(storage.readFile(), ui);
         Parser parser = new Parser(taskList, ui);

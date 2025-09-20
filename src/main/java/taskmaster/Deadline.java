@@ -3,7 +3,6 @@ package taskmaster;
 public class Deadline extends ToDo {
     protected String by;
 
-    // Constructor
     public Deadline(String description, String by) {
         super(description);
         type = TaskType.D;
