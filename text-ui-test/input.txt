@@ -31,6 +31,7 @@ mark
 unmark
 mark 1
 list
+find book
 delete 0
 delete -1
 delete 10
