@@ -1,14 +1,5 @@
 package taskmaster;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,8 +16,11 @@ import taskmaster.exceptions.MarkCommandTooManyInputException;
 import taskmaster.exceptions.MarkUnmarkOutOfBoundsException;
 import taskmaster.exceptions.UnmarkCommandMissingInputException;
 import taskmaster.exceptions.UnmarkCommandTooManyInputException;
+import taskmaster.storage.Storage;
 
 public class TaskMaster {
+    private static Storage storage;
+
     // Display all saved tasks
     public static void listTasks(ArrayList<Task> tasks, String SPACING) {
         System.out.print(SPACING);
@@ -420,91 +414,6 @@ public class TaskMaster {
         System.out.print(SPACING);
     }
 
-    // Create directory and file if not exist
-    public static void createNewFile(File fileName) {
-        String filePathString = "./data/TaskMaster.txt";
-        Path filePath = Paths.get(filePathString);
-
-        try {
-            // Create data directory and TaskMaster.txt file
-            Files.createDirectories(filePath.getParent());
-            Files.createFile(filePath);
-        } catch (IOException e) {
-            System.out.println("Error in creating file: " + e.getMessage());
-        }
-    }
-
-    // Get input from file
-    public static void getInput(File inputFile, ArrayList<Task> tasks) {
-        try {
-            Scanner fileScanner = new Scanner(inputFile);
-            while (fileScanner.hasNext()) {
-                String[] inputFromFile = fileScanner.nextLine().split("\\|");
-
-                // Add tasks
-                if (inputFromFile[0].equals("T")) {
-                    tasks.add(new ToDo(inputFromFile[2]));
-                } else if (inputFromFile[0].equals("D")) {
-                    tasks.add(new Deadline(inputFromFile[2], inputFromFile[3]));
-                } else if (inputFromFile[0].equals("E")) {
-                    tasks.add(new Event(inputFromFile[2], inputFromFile[3], inputFromFile[4]));
-                } else {
-                    System.out.println("File Corrupted");
-                    break;
-                }
-
-                // Update task status
-                if (inputFromFile[1].equals("1")) {
-                    tasks.get(Task.numberOfTasks).setDone();
-                }
-                Task.numberOfTasks++;
-            }
-        } catch (FileNotFoundException e) {
-            createNewFile(inputFile);
-        }
-    }
-
-    // Convert task into String output for export
-    public static String taskToStringForExport(Task task) {
-        String output = "";
-
-        if (task.getType() == TaskType.T) {
-            output += "T";
-        } else if (task.getType() == TaskType.D) {
-            output += "D";
-        } else if (task.getType() == TaskType.E) {
-            output += "E";
-        }
-
-        output += (task.isDone) ? "|1|" : "|0|";
-        output += task.description;
-
-        if (task.getType() == TaskType.D) {
-            output += "|" + task.getBy();
-        } else if (task.getType() == TaskType.E) {
-            output += "|" + task.getFrom() + "|" + task.getTo();
-        }
-
-        return output;
-    }
-
-    // Write output to file
-    public static void writeToFile(File filename, ArrayList<Task> tasks) {
-        try {
-            FileWriter outputFileWriter = new FileWriter(filename);
-
-            for (int i = 0; i < Task.numberOfTasks; i++) {
-                String output = taskToStringForExport(tasks.get(i));
-                output += (i < Task.numberOfTasks - 1) ? System.lineSeparator() : "";
-                outputFileWriter.write(output);
-            }
-
-            outputFileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Error on export: " + e.getMessage());
-        }
-    }
-
     // Try a command and handle exceptions
     public static void tryCommand(ArrayList<Task> tasks, String userInput, String SPACING) {
         try {
@@ -544,17 +453,14 @@ public class TaskMaster {
         final int LENGTH_OF_SPACING = 70;
         final String SPACING = "-".repeat(LENGTH_OF_SPACING) + "\n";
 
-        // Create Task ArrayList
-        ArrayList<Task> tasks = new ArrayList<>();
-
         // Opening message output
         startMessage(SPACING);
 
-        // Find input data,
-        // if found, read data
-        // if not found, create file
-        File inputFile = new File("./data/TaskMaster.txt");
-        getInput(inputFile, tasks);
+        // File Operation
+        storage = new Storage("./data/TaskMaster.txt");
+
+        // Create Task ArrayList using data from file
+        ArrayList<Task> tasks = storage.readFile();
 
         // Take User Input
         String userInput;
@@ -574,6 +480,6 @@ public class TaskMaster {
         endMessage(SPACING);
 
         // Output data to file
-        writeToFile(inputFile, tasks);
+        storage.writeToFile(tasks);
     }
 }
