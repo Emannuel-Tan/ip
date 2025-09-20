@@ -80,6 +80,25 @@ public class Ui {
         System.out.print("Now you have " + (Task.numberOfTasks - 1) + " task(s) in the list\n" + SPACING);
     }
 
+    public void taskNotFoundOutput() {
+        System.out.print(SPACING);
+        System.out.println("No tasks found with matching keyword!!");
+        System.out.print(SPACING);
+    }
+
+    public void taskFoundOutput(ArrayList<Task> tasks) {
+        System.out.print(SPACING);
+        System.out.println("Here are the matching task(s) in your list:");
+
+        int i = 1;
+        for (Task task: tasks) {
+            System.out.println(i + "." + task.getStatus());
+            i++;
+        }
+
+        System.out.print(SPACING);
+    }
+
     public void possibleCommandsOutput() {
         System.out.print(SPACING);
         System.out.println("Unknown command given, please use one of the following commands:");
@@ -91,6 +110,7 @@ public class Ui {
         System.out.println("mark <task_number>: Mark the task at task_number as done");
         System.out.println("unmark <task_number>: Mark the task at task_number as not done");
         System.out.println("delete <task_number>: Delete the task at task_number");
+        System.out.println("find <keyword>: Search for tasks that contain the keyword");
         System.out.print(SPACING);
     }
 

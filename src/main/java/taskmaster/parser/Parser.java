@@ -55,6 +55,8 @@ public class Parser {
         } else if (userInput.startsWith("delete")) {
             taskList.deleteTask(userInput);
 
+        } else if (userInput.startsWith("find")) {
+            taskList.findTask(userInput);
         } else {
             ui.possibleCommandsOutput();
         }
