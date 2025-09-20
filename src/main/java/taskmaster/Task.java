@@ -4,7 +4,7 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    protected static int numberOfTasks = 0;
+    public static int numberOfTasks = 0;
 
     // Constructor defaults to not done
     public Task(String description) {
@@ -35,6 +35,14 @@ public abstract class Task {
     // Reset task to Not Done
     public void setUndone() {
         isDone = false;
+    }
+
+    public boolean getDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public abstract TaskType getType();
