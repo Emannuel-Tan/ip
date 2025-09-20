@@ -1,6 +1,7 @@
 package taskmaster.tasklist;
 
 import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
 
 import taskmaster.Deadline;
 import taskmaster.Event;
@@ -15,6 +16,7 @@ import taskmaster.exceptions.DeleteCommandTooManyInputException;
 import taskmaster.exceptions.EmptyTodoTaskException;
 import taskmaster.exceptions.EventCommandMissingInputException;
 import taskmaster.exceptions.EventCommandWrongSubCommandException;
+import taskmaster.exceptions.FindCommandMissingInputException;
 import taskmaster.exceptions.MarkCommandMissingInputException;
 import taskmaster.exceptions.MarkCommandTooManyInputException;
 import taskmaster.exceptions.MarkUnmarkOutOfBoundsException;
@@ -222,5 +224,28 @@ public class TaskList {
         tasks.remove(taskToDeleteIndex);
 
         Task.numberOfTasks--;
+    }
+
+    public void findTask(String userInput) throws FindCommandMissingInputException {
+        final int LENGTH_OF_FIND = 4;
+
+        // Separate keyword from command
+        String keywordToSearch = userInput.substring(LENGTH_OF_FIND).trim();
+
+        // todo Error Handling
+        if (keywordToSearch.isEmpty()) {
+            throw new FindCommandMissingInputException();
+        }
+
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(keywordToSearch))
+                .sorted((t1, t2) -> t1.getDescription().compareToIgnoreCase(t2.getDescription()))
+                .collect(toList());
+
+        if (filteredTasks.isEmpty()) {
+            ui.taskNotFoundOutput();
+        } else {
+            ui.taskFoundOutput(filteredTasks);
+        }
     }
 }
