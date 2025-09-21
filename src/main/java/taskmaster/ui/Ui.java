@@ -175,15 +175,27 @@ public class Ui {
     public void possibleCommandsOutput() {
         System.out.print(SPACING);
         System.out.println("Unknown command given, please use one of the following commands:");
-        System.out.println("list: Lists all tasks");
-        System.out.println("bye: Exit the program");
-        System.out.println("todo <task> : Add a task with no deadline");
-        System.out.println("deadline <task> /by <deadline>: Add a task with deadline");
-        System.out.println("event <event_name> /from <start_time> /to <end_time>: Add a event with a start & end time");
-        System.out.println("mark <task_number>: Mark the task at task_number as done");
-        System.out.println("unmark <task_number>: Mark the task at task_number as not done");
-        System.out.println("delete <task_number>: Delete the task at task_number");
-        System.out.println("find <keyword>: Search for tasks that contain the keyword");
+        System.out.println("1. list: Lists all tasks");
+        System.out.println("2. bye: Exit the program");
+        System.out.println("3. todo <task> : Add a task with no deadline");
+        System.out.println("4. deadline <task> /by <deadline>: Add a task with deadline");
+        System.out.println("   <deadline> can be text and/or dd-mm-yyyy format");
+        System.out.println("5. event <event_name> /from <start_time> /to <end_time>: Add a event with a start & end time");
+        System.out.println("   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format");
+        System.out.println("6. mark <task_number>: Mark the task at task_number as done");
+        System.out.println("7. unmark <task_number>: Mark the task at task_number as not done");
+        System.out.println("8. delete <task_number>: Delete the task at task_number");
+        System.out.println("9. find <keyword>: Search for tasks that contain the keyword");
+        System.out.print(SPACING);
+    }
+
+    /**
+     * Prints Error Message when date format is wrong in deadline and event commands
+     */
+    public void handleDateWrongFormatException() {
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Date Format is wrong!!!");
+        System.out.println("Please try again with the format for date input: dd-mm-yyyy");
         System.out.print(SPACING);
     }
 
@@ -194,6 +206,7 @@ public class Ui {
         System.out.print(SPACING);
         System.out.println("OOPS!!! Missing <task> and/or Missing <deadline>!!!");
         System.out.println("Please try again with the format: deadline <task> /by <deadline>");
+        System.out.println("   <deadline> can be text and/or dd-mm-yyyy format");
         System.out.print(SPACING);
     }
 
@@ -253,6 +266,7 @@ public class Ui {
         System.out.print(SPACING);
         System.out.println("OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!");
         System.out.println("Please try again with the format: event <event_name> /from <start_time> /to <end_time>");
+        System.out.println("   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format");
         System.out.print(SPACING);
     }
 

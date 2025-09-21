@@ -1,7 +1,7 @@
 package taskmaster.tasklist;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
 import static java.util.stream.Collectors.toList;
 
 import taskmaster.Deadline;
@@ -196,7 +196,13 @@ public class TaskList {
             throw new DeadlineCommandMissingInputException();
         }
 
-        tasks.add(new Deadline(taskParameters[0], taskParameters[1]));
+        try {
+            tasks.add(new Deadline(taskParameters[0], taskParameters[1]));
+        } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
+            ui.handleDateWrongFormatException();
+            ui.handleDeadlineCommandMissingInputException();
+            return;
+        }
 
         ui.addTaskOutput(tasks.get(Task.numberOfTasks));
 
@@ -241,7 +247,13 @@ public class TaskList {
             throw new EventCommandMissingInputException();
         }
 
-        tasks.add(new Event(taskParameters[0], taskParameters[1], taskParameters[2]));
+        try {
+            tasks.add(new Event(taskParameters[0], taskParameters[1], taskParameters[2]));
+        } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
+            ui.handleDateWrongFormatException();
+            ui.handleEventCommandMissingInputException();
+            return;
+        }
 
         ui.addTaskOutput(tasks.get(Task.numberOfTasks));
 
