@@ -9,7 +9,7 @@ TaskMaster is a **task tracker chatbot** that can help keep track of todos, dead
 3. Copy the file to the folder you want to use as the home folder for TaskMaster (Preferably an empty folder, though it will work regardless)
 4. Open a command terminal and `cd` into the folder that you put the jar in, and use the `java -jar TaskMaster.jar` command to run the application
 5. The application should output as below
-   ![TaskMaster.jar starting output](https://drive.google.com/file/d/1Z88n2QZS0e9eQDB2yn_SQsxwarbrfNHf/view?usp=sharing)
+   ![TaskMaster.jar starting output](https://drive.google.com/file/d/1Z88n2QZS0e9eQDB2yn_SQsxwarbrfNHf/view)
 6. Refer to the [Features](#features) below for details of each command
 
 
