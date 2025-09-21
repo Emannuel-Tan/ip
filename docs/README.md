@@ -13,17 +13,21 @@ TaskMaster is a **task tracker chatbot** that can help keep track of todos, dead
 
 ## Features
 
-### List Tasks: ```list```
+#### List Tasks: ```list```
 Outputs to the terminal a list of all saved tasks
+
 Format: ```list```
 
-### Exit Program: ```bye```
+#### Exit Program: ```bye```
 Exits the program and saves all data to a text file
+
 Format: ```bye```
 
-### Add a ToDo Task: ```todo```
+#### Add a ToDo Task: ```todo```
 Adds a task to be done
+
 Format: ```todo <task>```
+
 Examples: 
-- ```todo buy new pen ink```
-- ```todo work on personal project```
+*```todo buy new pen ink```
++```todo work on personal project```
