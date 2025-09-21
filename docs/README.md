@@ -47,7 +47,7 @@ Examples:
 Adds an event with a from and to
 
 Format: ```event <event_name> /from <start_time> /to <end_time>```\
-```<start_time>``` an/or ```<end_time>``` can be of format `<text>` and/or `<dd-mm-yyyy>`
+```<start_time>``` and/or ```<end_time>``` can be of format `<text>` and/or `<dd-mm-yyyy>`
 
 Examples:
 - ```event CCA Fair /from Monday /to Friday```
