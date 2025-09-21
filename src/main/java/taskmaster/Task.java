@@ -56,4 +56,6 @@ public abstract class Task {
     public abstract String getFrom();
 
     public abstract String getTo();
+
+    public abstract String getByDate();
 }

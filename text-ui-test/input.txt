@@ -37,6 +37,13 @@ delete 0
 delete -1
 delete 10
 list
+deadline homework /by 21-9-2025
+deadline homework /by 21-09-2025
+deadline homework2 /by tmr 22-9-2025
+deadline homework2 /by tmr 22-09-2025
+list
+delete 5
+delete 5
 delete 1
 list
 delete 3

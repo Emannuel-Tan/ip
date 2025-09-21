@@ -197,6 +197,42 @@ Please try again with a valid number
 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+OOPS!!! Date Format is wrong!!!
+Please try again with the format for date input: dd-mm-yyyy
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Added Task:
+  [D][ ] homework (by: 2025/Sep/21)
+Now you have 5 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+OOPS!!! Date Format is wrong!!!
+Please try again with the format for date input: dd-mm-yyyy
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Added Task:
+  [D][ ] homework2 (by: tmr, 2025/Sep/22)
+Now you have 6 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+1.[T][X] read book
+2.[T][ ] write book
+3.[D][X] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[D][ ] homework (by: 2025/Sep/21)
+6.[D][ ] homework2 (by: tmr, 2025/Sep/22)
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Understood. I have deleted the task:
+  [D][ ] homework (by: 2025/Sep/21)
+Now you have 5 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Understood. I have deleted the task:
+  [D][ ] homework2 (by: tmr, 2025/Sep/22)
+Now you have 4 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
 Understood. I have deleted the task:
   [T][X] read book
 Now you have 3 task(s) in the list

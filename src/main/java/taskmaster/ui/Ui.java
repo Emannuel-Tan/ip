@@ -188,6 +188,16 @@ public class Ui {
     }
 
     /**
+     * Prints Error Message when date format is wrong in deadline and event commands
+     */
+    public void handleDateWrongFormatException() {
+        System.out.print(SPACING);
+        System.out.println("OOPS!!! Date Format is wrong!!!");
+        System.out.println("Please try again with the format for date input: dd-mm-yyyy");
+        System.out.print(SPACING);
+    }
+
+    /**
      * Prints Error Message when Empty task and/or deadline field in Deadline creation
      */
     public void handleDeadlineCommandMissingInputException() {
