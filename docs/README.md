@@ -35,20 +35,24 @@ Examples:
 ### Add a Deadline Task: ```deadline```
 Adds a task with a deadline
 
-Format: ```deadline <task> /by <deadline>```
+Format: ```deadline <task> /by <deadline>```\
+```<deadline>``` can be of format `<text>` and/or `<dd-mm-yyyy>`
 
 Examples:
 - ```deadline submit homework /by Tuesday 2359```
-- ```deadline complete quiz /by tmr```
+- ```deadline submit coursework /by 22-09-2025```
+- ```deadline complete quiz /by tmr 22-09-2025```
 
 ### Add an Event: ```event```
 Adds an event with a from and to
 
-Format: ```event <event_name> /from <start_time> /to <end_time>```
+Format: ```event <event_name> /from <start_time> /to <end_time>```\
+```<start_time>``` an/or ```<end_time>``` can be of format `<text>` and/or `<dd-mm-yyyy>`
 
 Examples:
 - ```event CCA Fair /from Monday /to Friday```
-- ```event CS2113 ip /from now /to Friday Oct 3rd 2359```
+- ```event IT Show /from 21-09-2025 /to end September 30-09-2025```
+- ```event CS2113 ip /from 21-09-2025 /to Friday Oct 3rd 2359```
 
 ### Mark Task: ```mark```
 Marks a task as done (task_number is shown when using `list`)
