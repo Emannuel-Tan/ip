@@ -42,4 +42,14 @@ public class ToDo extends Task {
     public String getByDate() {
         return "";
     }
+
+    @Override
+    public String getFromDate() {
+        return "";
+    }
+
+    @Override
+    public String getToDate() {
+        return "";
+    }
 }

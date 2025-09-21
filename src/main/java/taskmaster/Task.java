@@ -58,4 +58,8 @@ public abstract class Task {
     public abstract String getTo();
 
     public abstract String getByDate();
+
+    public abstract String getFromDate();
+
+    public abstract String getToDate();
 }

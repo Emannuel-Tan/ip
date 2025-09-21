@@ -10,15 +10,17 @@ What can I do for you?
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Unknown command given, please use one of the following commands:
-list: Lists all tasks
-bye: Exit the program
-todo <task> : Add a task with no deadline
-deadline <task> /by <deadline>: Add a task with deadline
-event <event_name> /from <start_time> /to <end_time>: Add a event with a start & end time
-mark <task_number>: Mark the task at task_number as done
-unmark <task_number>: Mark the task at task_number as not done
-delete <task_number>: Delete the task at task_number
-find <keyword>: Search for tasks that contain the keyword
+1. list: Lists all tasks
+2. bye: Exit the program
+3. todo <task> : Add a task with no deadline
+4. deadline <task> /by <deadline>: Add a task with deadline
+   <deadline> can be text and/or dd-mm-yyyy format
+5. event <event_name> /from <start_time> /to <end_time>: Add a event with a start & end time
+   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
+6. mark <task_number>: Mark the task at task_number as done
+7. unmark <task_number>: Mark the task at task_number as not done
+8. delete <task_number>: Delete the task at task_number
+9. find <keyword>: Search for tasks that contain the keyword
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Added Task:
@@ -119,6 +121,7 @@ Please try again with the format: todo <task>
 ----------------------------------------------------------------------
 OOPS!!! Missing <task> and/or Missing <deadline>!!!
 Please try again with the format: deadline <task> /by <deadline>
+   <deadline> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS!!! Subcommand /by is missing or wrong!!!
@@ -127,14 +130,17 @@ Please try again with the format: deadline <task> /by <deadline>
 ----------------------------------------------------------------------
 OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
 Please try again with the format: event <event_name> /from <start_time> /to <end_time>
+   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
 Please try again with the format: event <event_name> /from <start_time> /to <end_time>
+   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
 Please try again with the format: event <event_name> /from <start_time> /to <end_time>
+   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS!!! Subcommand /from and/or /to is missing or wrong!!!
@@ -201,6 +207,11 @@ OOPS!!! Date Format is wrong!!!
 Please try again with the format for date input: dd-mm-yyyy
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+OOPS!!! Missing <task> and/or Missing <deadline>!!!
+Please try again with the format: deadline <task> /by <deadline>
+   <deadline> can be text and/or dd-mm-yyyy format
+----------------------------------------------------------------------
+----------------------------------------------------------------------
 Added Task:
   [D][ ] homework (by: 2025/Sep/21)
 Now you have 5 task(s) in the list
@@ -208,6 +219,11 @@ Now you have 5 task(s) in the list
 ----------------------------------------------------------------------
 OOPS!!! Date Format is wrong!!!
 Please try again with the format for date input: dd-mm-yyyy
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+OOPS!!! Missing <task> and/or Missing <deadline>!!!
+Please try again with the format: deadline <task> /by <deadline>
+   <deadline> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Added Task:
@@ -230,6 +246,69 @@ Now you have 5 task(s) in the list
 ----------------------------------------------------------------------
 Understood. I have deleted the task:
   [D][ ] homework2 (by: tmr, 2025/Sep/22)
+Now you have 4 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+1.[T][X] read book
+2.[T][ ] write book
+3.[D][X] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+OOPS!!! Date Format is wrong!!!
+Please try again with the format for date input: dd-mm-yyyy
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
+Please try again with the format: event <event_name> /from <start_time> /to <end_time>
+   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Added Task:
+  [E][ ] event1 (from: 2025/Sep/21 to: now, 2025/Sep/21)
+Now you have 5 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+OOPS!!! Date Format is wrong!!!
+Please try again with the format for date input: dd-mm-yyyy
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
+Please try again with the format: event <event_name> /from <start_time> /to <end_time>
+   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Added Task:
+  [E][ ] event2 (from: now to: now, 2025/Sep/21)
+Now you have 6 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Added Task:
+  [E][ ] event3 (from: now, 2025/Sep/21 to: tmr, 2025/Sep/22)
+Now you have 7 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+1.[T][X] read book
+2.[T][ ] write book
+3.[D][X] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[E][ ] event1 (from: 2025/Sep/21 to: now, 2025/Sep/21)
+6.[E][ ] event2 (from: now to: now, 2025/Sep/21)
+7.[E][ ] event3 (from: now, 2025/Sep/21 to: tmr, 2025/Sep/22)
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Understood. I have deleted the task:
+  [E][ ] event1 (from: 2025/Sep/21 to: now, 2025/Sep/21)
+Now you have 6 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Understood. I have deleted the task:
+  [E][ ] event2 (from: now to: now, 2025/Sep/21)
+Now you have 5 task(s) in the list
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Understood. I have deleted the task:
+  [E][ ] event3 (from: now, 2025/Sep/21 to: tmr, 2025/Sep/22)
 Now you have 4 task(s) in the list
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------

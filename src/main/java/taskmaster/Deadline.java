@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends ToDo {
     protected String by;
     protected LocalDate byDate;
+    protected DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Deadline(String description, String by) {
         super(description);
         type = TaskType.D;
 
-        DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         if (by.contains("-")) {
             // Separate dd-mm-yyyy string from rest of /by string
             String byDateString = by.substring(by.indexOf("-") - 2).trim();

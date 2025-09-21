@@ -44,6 +44,16 @@ deadline homework2 /by tmr 22-09-2025
 list
 delete 5
 delete 5
+list
+event event1 /from 21-9-2025 /to now 21-09-2025
+event event1 /from 21-09-2025 /to now 21-09-2025
+event event2 /from now /to now 21-9-2025
+event event2 /from now /to now 21-09-2025
+event event3 /from now 21-09-2025 /to tmr 22-09-2025
+list
+delete 5
+delete 5
+delete 5
 delete 1
 list
 delete 3

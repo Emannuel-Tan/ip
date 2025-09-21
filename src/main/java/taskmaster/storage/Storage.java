@@ -110,7 +110,7 @@ public class Storage {
         if (task.getType() == TaskType.D) {
             output += "|" + task.getBy() + " " + task.getByDate();
         } else if (task.getType() == TaskType.E) {
-            output += "|" + task.getFrom() + "|" + task.getTo();
+            output += "|" + task.getFrom() + " " + task.getFromDate() + "|" + task.getTo() + " " + task.getToDate();
         }
 
         return output;
