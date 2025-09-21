@@ -1,5 +1,11 @@
 package taskmaster;
 
+/**
+ * Represents a task to be done
+ *
+ * @author Emannuel Tan Jing Yue
+ * @since 2025-09-21
+ */
 public class ToDo extends Task {
     protected TaskType type;
 

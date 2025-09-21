@@ -1,6 +1,7 @@
 package taskmaster.tasklist;
 
 import java.util.ArrayList;
+
 import static java.util.stream.Collectors.toList;
 
 import taskmaster.Deadline;
@@ -25,6 +26,13 @@ import taskmaster.exceptions.UnmarkCommandTooManyInputException;
 
 import taskmaster.ui.Ui;
 
+/**
+ * Contains a ArrayList of Task class and manipulate it
+ * according to commands given
+ *
+ * @author Emannuel Tan Jing Yue
+ * @since 2025-09-21
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
     protected Ui ui;
@@ -34,14 +42,30 @@ public class TaskList {
         this.ui = ui;
     }
 
+    /**
+     * Returns ArrayList of tasks
+     *
+     * @return ArrayList of tasks
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Calls the Ui class to print all tasks
+     */
     public void listTasks() {
         ui.listTasks(tasks);
     }
 
+    /**
+     * Sets the task at an index as done
+     *
+     * @param userInput String input by user
+     * @throws MarkCommandMissingInputException If mark command missing input for index field
+     * @throws MarkCommandTooManyInputException If mark command has spaces in index field
+     * @throws MarkUnmarkOutOfBoundsException   If mark command used with non-existing index
+     */
     public void markTask(String userInput)
             throws MarkCommandMissingInputException, MarkCommandTooManyInputException,
             MarkUnmarkOutOfBoundsException {
@@ -73,6 +97,14 @@ public class TaskList {
         ui.markTaskOutput(tasks.get(taskToMarkIndex));
     }
 
+    /**
+     * Sets the task at an index as not done
+     *
+     * @param userInput String input by user
+     * @throws MarkUnmarkOutOfBoundsException     If unmark command used with non-existing index
+     * @throws UnmarkCommandMissingInputException If unmark command missing input for index field
+     * @throws UnmarkCommandTooManyInputException If unmark command has spaces in index field
+     */
     public void unmarkTask(String userInput)
             throws MarkUnmarkOutOfBoundsException, UnmarkCommandMissingInputException,
             UnmarkCommandTooManyInputException {
@@ -104,6 +136,13 @@ public class TaskList {
         ui.unmarkTaskOutput(tasks.get(taskToUnmarkIndex));
     }
 
+    /**
+     * Adds a Todo task into the ArrayList
+     * and outputs the information of the task added using Ui class
+     *
+     * @param userInput String input by user
+     * @throws EmptyTodoTaskException If todo command missing input for task field
+     */
     public void addToDo(String userInput) throws EmptyTodoTaskException {
         final int LENGTH_OF_TODO = 4;
 
@@ -122,6 +161,14 @@ public class TaskList {
         Task.numberOfTasks++;
     }
 
+    /**
+     * Adds a Deadline task into the ArrayList
+     * and outputs the information of the task added using Ui class
+     *
+     * @param userInput String input by user
+     * @throws DeadlineCommandMissingInputException    If deadline command missing input for task and/or by field
+     * @throws DeadlineCommandWrongSubCommandException If deadline command does not have /by sub command
+     */
     public void addDeadline(String userInput)
             throws DeadlineCommandMissingInputException, DeadlineCommandWrongSubCommandException {
         final int LENGTH_OF_DEADLINE = 8;
@@ -156,6 +203,14 @@ public class TaskList {
         Task.numberOfTasks++;
     }
 
+    /**
+     * Adds an Event task to the ArrayList
+     * and outputs the information of the task added using Ui class
+     *
+     * @param userInput String input by user
+     * @throws EventCommandMissingInputException    If event command missing input for task and/or from and/or to field
+     * @throws EventCommandWrongSubCommandException If event command does not have /from and/or /to command
+     */
     public void addEvent(String userInput)
             throws EventCommandMissingInputException, EventCommandWrongSubCommandException {
         final int LENGTH_OF_EVENT = 5;
@@ -193,6 +248,15 @@ public class TaskList {
         Task.numberOfTasks++;
     }
 
+    /**
+     * Deletes the task at an index and
+     * outputs which task was deleted using Ui class
+     *
+     * @param userInput String input by the user
+     * @throws DeleteCommandMissingInputException If delete command missing input for index field
+     * @throws DeleteCommandOutOfBoundsException  If delete command used with non-existing index
+     * @throws DeleteCommandTooManyInputException If delete command has spaces in index field
+     */
     public void deleteTask(String userInput)
             throws DeleteCommandMissingInputException, DeleteCommandOutOfBoundsException,
             DeleteCommandTooManyInputException {
@@ -226,17 +290,25 @@ public class TaskList {
         Task.numberOfTasks--;
     }
 
+    /**
+     * Finds all tasks that contain a keyword and
+     * outputs them using Ui class
+     *
+     * @param userInput String input by user
+     * @throws FindCommandMissingInputException If find command missing input for keyword field
+     */
     public void findTask(String userInput) throws FindCommandMissingInputException {
         final int LENGTH_OF_FIND = 4;
 
         // Separate keyword from command
         String keywordToSearch = userInput.substring(LENGTH_OF_FIND).trim();
 
-        // todo Error Handling
+        // Error Handling
         if (keywordToSearch.isEmpty()) {
             throw new FindCommandMissingInputException();
         }
 
+        // Filter out tasks that contain the keyword
         ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
                 .filter((t) -> t.getDescription().contains(keywordToSearch))
                 .sorted((t1, t2) -> t1.getDescription().compareToIgnoreCase(t2.getDescription()))
