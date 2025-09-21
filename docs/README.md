@@ -7,14 +7,16 @@ TaskMaster is a **task tracker chatbot** that can help keep track of todos, dead
 1. Ensure that you have Java `17` or above installed in your Computer
 2. Download the latest `.jar` file from [here](https://github.com/Emannuel-Tan/ip)
 3. Copy the file to the folder you want to use as the home folder for TaskMaster (Preferably an empty folder, though it will work regardless)
-4. Open a command terminal and `cd` into the folder that you put the jar in, and use the `jar -jar TaskMaster.jar` command to run the application
-5. Refer to the [Features](#features) below for details of each command
+4. Open a command terminal and `cd` into the folder that you put the jar in, and use the `java -jar TaskMaster.jar` command to run the application
+5. The application should output as below
+   ![TaskMaster.jar starting output](https://drive.google.com/file/d/1Z88n2QZS0e9eQDB2yn_SQsxwarbrfNHf/view?usp=sharing)
+6. Refer to the [Features](#features) below for details of each command
 
 
 ## Features
 
 ### List Tasks: ```list```
-Outputs to the terminal a list of all saved tasks
+Outputs to the terminal the list of all saved tasks
 
 Format: ```list```
 
@@ -48,34 +50,34 @@ Format: ```event <event_name> /from <start_time> /to <end_time>```
 
 Examples:
 - ```event CCA Fair /from Monday /to Friday```
-- ```CS2113 ip /from now /to Friday Oct 3rd 2359```
+- ```event CS2113 ip /from now /to Friday Oct 3rd 2359```
 
 ### Mark Task: ```mark```
-Marks a task as done
+Marks a task as done (task_number is shown when using `list`)
 
 Format: ```mark <task_number>```
 
 Examples:
-- ```mark 1```
-- ```mark 3```
+- ```mark 1``` Marks the task at index 1 as done 
+- ```mark 3``` Marks the task at index 3 as done
 
 ### Unmark Task: ```unmark```
-Marks a task as not done
+Marks a task as not done (task_number is shown when using `list`)
 
 Format: ```unmark <task_number>```
 
 Examples:
-- ```unmark 1```
-- ```unmark 3```
+- ```unmark 1``` Marks the task at index 1 as not done
+- ```unmark 3``` Marks the task at index 3 as not done
 
 ### Delete Task: ```delete```
-Deletes a task
+Deletes a task (task_number is shown when using `list`)
 
 Format: ```delete <task_number>```
 
 Examples:
-- ```delete 1```
-- ```delete 3```
+- ```delete 1``` Deletes the task at index 1
+- ```delete 3``` Deletes the task at index 3
 
 ### Find Task: ```find```
 Finds & Outputs all tasks that contain a keyword, case-insensitive
