@@ -5,6 +5,16 @@ import taskmaster.storage.Storage;
 import taskmaster.tasklist.TaskList;
 import taskmaster.ui.Ui;
 
+/**
+ * <h1>TaskMaster</h1>
+ * TaskMaster is a task tracker chatbot
+ * that can help keep track of
+ * todos, deadlines and events
+ *
+ * @author Emannuel Tan Jing Yue
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class TaskMaster {
 
     // Main Method

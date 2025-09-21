@@ -1,5 +1,11 @@
 package taskmaster;
 
+/**
+ * Represents a Task
+ *
+ * @author Emannuel Tan Jing Yue
+ * @since 2025-09-21
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
