@@ -74,7 +74,6 @@ public class TaskList {
         // Separate task from command
         String taskToMark = userInput.substring(LENGTH_OF_MARK).trim();
 
-        // Error Handling
         if (taskToMark.isEmpty()) {
             throw new MarkCommandMissingInputException();
         }
@@ -87,7 +86,6 @@ public class TaskList {
             throw new MarkCommandTooManyInputException();
         }
 
-        // Error Handling
         if (taskToMarkIndex < 0 || taskToMarkIndex >= Task.numberOfTasks) {
             throw new MarkUnmarkOutOfBoundsException();
         }
@@ -113,7 +111,6 @@ public class TaskList {
         // Separate task from command
         String taskToUnmark = userInput.substring(LENGTH_OF_UNMARK).trim();
 
-        // Error Handling
         if (taskToUnmark.isEmpty()) {
             throw new UnmarkCommandMissingInputException();
         }
@@ -126,7 +123,6 @@ public class TaskList {
             throw new UnmarkCommandTooManyInputException();
         }
 
-        // Error Handling
         if (taskToUnmarkIndex < 0 || taskToUnmarkIndex >= Task.numberOfTasks) {
             throw new MarkUnmarkOutOfBoundsException();
         }
@@ -149,7 +145,6 @@ public class TaskList {
         // Separate task from command
         String toDoTask = userInput.substring(LENGTH_OF_TODO).trim();
 
-        // Error Handling
         if (toDoTask.isEmpty()) {
             throw new EmptyTodoTaskException();
         }
@@ -175,12 +170,9 @@ public class TaskList {
         final int LENGTH_OF_BY = 2;
 
         // Separate task and deadline from command
-        // taskParameters[0]: Task
-        // taskParameters[1]: Deadline
         String deadlineTask = userInput.substring(LENGTH_OF_DEADLINE).trim();
         String[] taskParameters = deadlineTask.split("/");
 
-        // Error Handling
         if (taskParameters.length < 2) {
             throw new DeadlineCommandMissingInputException();
         } else if (!taskParameters[1].startsWith("by")) {
@@ -191,7 +183,6 @@ public class TaskList {
         taskParameters[0] = taskParameters[0].trim();
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_BY).trim();
 
-        // Error Handling
         if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty()) {
             throw new DeadlineCommandMissingInputException();
         }
@@ -200,7 +191,6 @@ public class TaskList {
             tasks.add(new Deadline(taskParameters[0], taskParameters[1]));
         } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
             ui.handleDateWrongFormatException();
-            ui.handleDeadlineCommandMissingInputException();
             return;
         }
 
@@ -224,13 +214,9 @@ public class TaskList {
         final int LENGTH_OF_TO = 2;
 
         // Separate task and from and to from command
-        // taskParameters[0]: Task
-        // taskParameters[1]: From
-        // taskParameters[2]: To
         String eventTask = userInput.substring(LENGTH_OF_EVENT).trim();
         String[] taskParameters = eventTask.split("/");
 
-        // Error Handling
         if (taskParameters.length < 3) {
             throw new EventCommandMissingInputException();
         } else if (!taskParameters[1].startsWith("from") || !taskParameters[2].startsWith("to")) {
@@ -242,7 +228,6 @@ public class TaskList {
         taskParameters[1] = taskParameters[1].substring(LENGTH_OF_FROM).trim();
         taskParameters[2] = taskParameters[2].substring(LENGTH_OF_TO).trim();
 
-        // Error Handling
         if (taskParameters[0].isEmpty() || taskParameters[1].isEmpty() || taskParameters[2].isEmpty()) {
             throw new EventCommandMissingInputException();
         }
@@ -251,7 +236,6 @@ public class TaskList {
             tasks.add(new Event(taskParameters[0], taskParameters[1], taskParameters[2]));
         } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
             ui.handleDateWrongFormatException();
-            ui.handleEventCommandMissingInputException();
             return;
         }
 
@@ -277,7 +261,6 @@ public class TaskList {
         // Separate index from command
         String taskToDelete = userInput.substring(LENGTH_OF_DELETE).trim();
 
-        // Error Handling
         if (taskToDelete.isEmpty()) {
             throw new DeleteCommandMissingInputException();
         }
@@ -290,7 +273,6 @@ public class TaskList {
             throw new DeleteCommandTooManyInputException();
         }
 
-        // Error Handling
         if (taskToDeleteIndex < 0 || taskToDeleteIndex >= Task.numberOfTasks) {
             throw new DeleteCommandOutOfBoundsException();
         }
@@ -315,7 +297,6 @@ public class TaskList {
         // Separate keyword from command
         String keywordToSearch = userInput.substring(LENGTH_OF_FIND).trim();
 
-        // Error Handling
         if (keywordToSearch.isEmpty()) {
             throw new FindCommandMissingInputException();
         }

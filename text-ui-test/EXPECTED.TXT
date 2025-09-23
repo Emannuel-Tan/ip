@@ -207,11 +207,6 @@ OOPS!!! Date Format is wrong!!!
 Please try again with the format for date input: dd-mm-yyyy
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-OOPS!!! Missing <task> and/or Missing <deadline>!!!
-Please try again with the format: deadline <task> /by <deadline>
-   <deadline> can be text and/or dd-mm-yyyy format
-----------------------------------------------------------------------
-----------------------------------------------------------------------
 Added Task:
   [D][ ] homework (by: 2025/Sep/21)
 Now you have 5 task(s) in the list
@@ -219,11 +214,6 @@ Now you have 5 task(s) in the list
 ----------------------------------------------------------------------
 OOPS!!! Date Format is wrong!!!
 Please try again with the format for date input: dd-mm-yyyy
-----------------------------------------------------------------------
-----------------------------------------------------------------------
-OOPS!!! Missing <task> and/or Missing <deadline>!!!
-Please try again with the format: deadline <task> /by <deadline>
-   <deadline> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Added Task:
@@ -259,11 +249,6 @@ OOPS!!! Date Format is wrong!!!
 Please try again with the format for date input: dd-mm-yyyy
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
-Please try again with the format: event <event_name> /from <start_time> /to <end_time>
-   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
-----------------------------------------------------------------------
-----------------------------------------------------------------------
 Added Task:
   [E][ ] event1 (from: 2025/Sep/21 to: now, 2025/Sep/21)
 Now you have 5 task(s) in the list
@@ -271,11 +256,6 @@ Now you have 5 task(s) in the list
 ----------------------------------------------------------------------
 OOPS!!! Date Format is wrong!!!
 Please try again with the format for date input: dd-mm-yyyy
-----------------------------------------------------------------------
-----------------------------------------------------------------------
-OOPS!!! Missing <task> and/or Missing <start_time> and/or Missing <end_time>!!!
-Please try again with the format: event <event_name> /from <start_time> /to <end_time>
-   <start_time> and/or <end_time> can be text and/or dd-mm-yyyy format
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Added Task:

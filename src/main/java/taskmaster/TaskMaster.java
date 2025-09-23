@@ -16,8 +16,6 @@ import taskmaster.ui.Ui;
  * @since 2025-09-21
  */
 public class TaskMaster {
-
-    // Main Method
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.startMessage();

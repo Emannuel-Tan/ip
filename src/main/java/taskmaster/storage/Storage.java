@@ -41,7 +41,7 @@ public class Storage {
     }
 
     /**
-     * Create directory and file if does not exist
+     * Create directory and file
      */
     private void createNewFile() {
         try {
@@ -56,6 +56,7 @@ public class Storage {
     /**
      * Return ArrayList of tasks saved in textfile
      * or empty ArrayList when directory and/or file not found
+     * and creates the directory and file
      *
      * @return returns ArrayList of tasks or empty ArrayList
      */

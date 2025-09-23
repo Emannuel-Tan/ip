@@ -1,5 +1,7 @@
 package taskmaster.parser;
 
+import taskmaster.Command;
+
 import taskmaster.exceptions.DeadlineCommandMissingInputException;
 import taskmaster.exceptions.DeadlineCommandWrongSubCommandException;
 import taskmaster.exceptions.DeleteCommandMissingInputException;
@@ -61,28 +63,28 @@ public class Parser {
             FindCommandMissingInputException, MarkCommandMissingInputException,
             MarkCommandTooManyInputException, MarkUnmarkOutOfBoundsException,
             UnmarkCommandMissingInputException, UnmarkCommandTooManyInputException {
-        if (userInput.startsWith("list")) {
+        if (userInput.startsWith(String.valueOf(Command.list))) {
             taskList.listTasks();
 
-        } else if (userInput.startsWith("mark")) {
+        } else if (userInput.startsWith(String.valueOf(Command.mark))) {
             taskList.markTask(userInput);
 
-        } else if (userInput.startsWith("unmark")) {
+        } else if (userInput.startsWith(String.valueOf(Command.unmark))) {
             taskList.unmarkTask(userInput);
 
-        } else if (userInput.startsWith("todo")) {
+        } else if (userInput.startsWith(String.valueOf(Command.todo))) {
             taskList.addToDo(userInput);
 
-        } else if (userInput.startsWith("deadline")) {
+        } else if (userInput.startsWith(String.valueOf(Command.deadline))) {
             taskList.addDeadline(userInput);
 
-        } else if (userInput.startsWith("event")) {
+        } else if (userInput.startsWith(String.valueOf(Command.event))) {
             taskList.addEvent(userInput);
 
-        } else if (userInput.startsWith("delete")) {
+        } else if (userInput.startsWith(String.valueOf(Command.delete))) {
             taskList.deleteTask(userInput);
 
-        } else if (userInput.startsWith("find")) {
+        } else if (userInput.startsWith(String.valueOf(Command.find))) {
             taskList.findTask(userInput);
 
         } else {
@@ -98,34 +100,13 @@ public class Parser {
     public void tryCommand(String userInput) {
         try {
             handleCommand(userInput);
-        } catch (DeadlineCommandMissingInputException e) {
-            ui.handleDeadlineCommandMissingInputException();
-        } catch (DeadlineCommandWrongSubCommandException e) {
-            ui.handleDeadlineCommandWrongSubCommandException();
-        } catch (DeleteCommandMissingInputException e) {
-            ui.handleDeleteCommandMissingInputException();
-        } catch (DeleteCommandOutOfBoundsException e) {
-            ui.handleDeleteCommandOutOfBoundsException();
-        } catch (DeleteCommandTooManyInputException e) {
-            ui.handleDeleteCommandTooManyInputException();
-        } catch (EmptyTodoTaskException e) {
-            ui.handleEmptyTodoTaskException();
-        } catch (EventCommandMissingInputException e) {
-            ui.handleEventCommandMissingInputException();
-        } catch (EventCommandWrongSubCommandException e) {
-            ui.handleEventCommandWrongSubCommandException();
-        } catch (FindCommandMissingInputException e) {
-            ui.handleFindCommandMissingInputException();
-        } catch (MarkCommandMissingInputException e) {
-            ui.handleMarkCommandMissingInputException();
-        } catch (MarkCommandTooManyInputException e) {
-            ui.handleMarkCommandTooManyInputException();
-        } catch (MarkUnmarkOutOfBoundsException e) {
-            ui.handleMarkUnmarkOutOfBoundsException();
-        } catch (UnmarkCommandMissingInputException e) {
-            ui.handleUnmarkCommandMissingInputException();
-        } catch (UnmarkCommandTooManyInputException e) {
-            ui.handleUnmarkCommandTooManyInputException();
+        } catch (DeadlineCommandMissingInputException | DeadlineCommandWrongSubCommandException |
+                 DeleteCommandMissingInputException | DeleteCommandOutOfBoundsException |
+                 DeleteCommandTooManyInputException | EmptyTodoTaskException | EventCommandMissingInputException |
+                 EventCommandWrongSubCommandException | FindCommandMissingInputException |
+                 MarkCommandMissingInputException | MarkCommandTooManyInputException | MarkUnmarkOutOfBoundsException |
+                 UnmarkCommandMissingInputException | UnmarkCommandTooManyInputException e) {
+            ui.printErrorMessage(e.getMessage());
         }
     }
 }
