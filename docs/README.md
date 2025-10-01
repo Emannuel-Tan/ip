@@ -1,5 +1,5 @@
 ![TaskMaster](./assets/TaskMaster.png)
-
+TaskMaster is a **task tracker chatbot** that can help keep track of todos, deadlines and events via a **Command Line Interface (CLI)**
 * * *
 
 # Quick Start
