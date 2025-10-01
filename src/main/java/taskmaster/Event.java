@@ -43,22 +43,22 @@ public class Event extends ToDo {
 
     @Override
     public String getStatus() {
-        String output = super.getStatus() + " (from: ";
+        String statusString = super.getStatus() + " (from: ";
         DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("yyyy/MMM/d");
 
         if (fromDate == null) {
-            output += from;
+            statusString += from;
         } else {
-            output += (from.isEmpty() ? "" : (from + ", ")) + fromDate.format(outputDateFormat);
+            statusString += (from.isEmpty() ? "" : (from + ", ")) + fromDate.format(outputDateFormat);
         }
-        output += " to: ";
+        statusString += " to: ";
         if (toDate == null) {
-            output += to;
+            statusString += to;
         } else {
-            output += (to.isEmpty() ? "" : (to + ", ")) + toDate.format(outputDateFormat);
+            statusString += (to.isEmpty() ? "" : (to + ", ")) + toDate.format(outputDateFormat);
         }
 
-        return output + ")";
+        return statusString + ")";
     }
 
     public String getFrom() {

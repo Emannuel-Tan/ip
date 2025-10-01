@@ -31,16 +31,16 @@ public class Deadline extends ToDo {
 
     @Override
     public String getStatus() {
-        String output = super.getStatus() + " (by: ";
+        String statusString = super.getStatus() + " (by: ";
 
         if (byDate == null) {
-            output += by;
+            statusString += by;
         } else {
             DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("yyyy/MMM/d");
-            output += (by.isEmpty() ? "" : (by + ", ")) + byDate.format(outputDateFormat);
+            statusString += (by.isEmpty() ? "" : (by + ", ")) + byDate.format(outputDateFormat);
         }
 
-        return output + ")";
+        return statusString + ")";
     }
 
     public String getBy() {

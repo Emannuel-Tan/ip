@@ -20,17 +20,17 @@ public abstract class Task {
 
     // Returns String output of current status and task content
     public String getStatus() {
-        String output = "[";
+        String statusString = "[";
 
         if (isDone) {
-            output += "X";
+            statusString += "X";
         } else {
-            output += " ";
+            statusString += " ";
         }
 
-        output += "] " + description;
+        statusString += "] " + description;
 
-        return output;
+        return statusString;
     }
 
     public void setDone() {
