@@ -1,3 +1,5 @@
+![TaskMaster](./assets/TaskMaster.png)
+
 # Quick Start
 
 1. Ensure that you have Java `17` or above installed in your Computer
@@ -90,20 +92,20 @@ Examples:
 TaskMaster data are saved in the hard disk automatically before the exit of the program. There is no need to save manually
 
 # Editing the data file
-TaskMaster data are saved automatically as a txt file `[JAR FILE LOCATION]/data/TaskMaster.txt`. Advanced users are welcome to update data directly by editng the data file.
+TaskMaster data are saved automatically as a txt file `[JAR FILE LOCATION]/data/TaskMaster.txt`. Advanced users are welcome to update data directly by editing the data file.
 
 **Caution!!!:** Only edit the data file if you are confident that you can update it correctly
 
 # Command Summary
 
-| Action   | Format, Examples                                                                                                     |
-|----------|----------------------------------------------------------------------------------------------------------------------|
-| list     | `list`                                                                                                               |
-| bye      | `bye`                                                                                                                |
-| todo     | `todo <task>`\e.g. `todo buy ink`                                                                                    |
-| deadline | `deadline <task> /by <deadline>`\e.g. `deadline homework /by Thursday 02-10-2025`                                    |
-| event    | `event <event_name> /from <start_time> /to <end_time>`\e.g. `event IT show /from Tue 30-09-2025 /to Thur 02-10-2025` |
-| mark     | `mark <task_number>`\e.g. `mark 1`                                                                                   |
-| unmark   | `unmark <task_number>`\e.g. `unmark 1`                                                                               |
-| delete   | `delete <task_number>`\e.g. `delete 1`                                                                               |
-| find     | `find <keyword>` \e.g. `find exam`                                                                                   |
+| Action   | Format, Examples                                                                                                          |
+|----------|---------------------------------------------------------------------------------------------------------------------------|
+| list     | `list`                                                                                                                    |
+| bye      | `bye`                                                                                                                     |
+| todo     | `todo <task>`<br/> e.g. `todo buy ink`                                                                                    |
+| deadline | `deadline <task> /by <deadline>`<br/> e.g. `deadline homework /by Thursday 02-10-2025`                                    |
+| event    | `event <event_name> /from <start_time> /to <end_time>`<br/> e.g. `event IT show /from Tue 30-09-2025 /to Thur 02-10-2025` |
+| mark     | `mark <task_number>`<br/> e.g. `mark 1`                                                                                   |
+| unmark   | `unmark <task_number>`<br/> e.g. `unmark 1`                                                                               |
+| delete   | `delete <task_number>`<br/> e.g. `delete 1`                                                                               |
+| find     | `find <keyword>` <br/> e.g. `find exam`                                                                                   |
