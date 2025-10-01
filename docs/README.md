@@ -1,12 +1,17 @@
 ![TaskMaster](./assets/TaskMaster.png)
+
 * * *
+
 # Quick Start
+
 1. Ensure that you have Java `17` or above installed in your Computer. If not, you can follow this [guide](https://se-education.org/guides/tutorials/javaInstallation.html)
 2. Download the latest `.jar` file from [here](https://github.com/Emannuel-Tan/ip)
 3. Copy the file to the folder you want to use as the home folder for TaskMaster (Preferably an empty folder, though it will work regardless)
 4. Open a command terminal and `cd` into the folder that you put the jar in, and use the `java -jar ip.jar` command to run the application
 5. Refer to the [Features](#features) below for details of each command
+
 * * *
+
 # Features
 
 ## List Tasks: ```list```
@@ -93,7 +98,9 @@ TaskMaster data are saved in the hard disk automatically before the exit of the 
 TaskMaster data are saved automatically as a txt file `[JAR FILE LOCATION]/data/TaskMaster.txt`. Advanced users are welcome to update data directly by editing the data file.
 
 **Caution!!!:** Only edit the data file if you are confident that you can update it correctly
+
 * * *
+
 # Command Summary
 
 | Action   | Format, Examples                                                                                                          |
