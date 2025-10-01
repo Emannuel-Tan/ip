@@ -1,8 +1,4 @@
-# TaskMaster User Guide
-
-TaskMaster is a **task tracker chatbot** that can help keep track of todos, deadlines and events via a **Command Line Interface** (CLI)
-
-## Quick Start
+# Quick Start
 
 1. Ensure that you have Java `17` or above installed in your Computer
 2. Download the latest `.jar` file from [here](https://github.com/Emannuel-Tan/ip)
@@ -11,19 +7,19 @@ TaskMaster is a **task tracker chatbot** that can help keep track of todos, dead
 5. Refer to the [Features](#features) below for details of each command
 
 
-## Features
+# Features
 
-### List Tasks: ```list```
+## List Tasks: ```list```
 Outputs to the terminal the list of all saved tasks
 
 Format: ```list```
 
-### Exit Program: ```bye```
+## Exit Program: ```bye```
 Exits the program 
 
 Format: ```bye```
 
-### Add a ToDo Task: ```todo```
+## Add a ToDo Task: ```todo```
 Adds a task to be done
 
 Format: ```todo <task>```
@@ -32,7 +28,7 @@ Examples:
 - ```todo buy new pen ink``` 
 - ```todo work on personal project```
 
-### Add a Deadline Task: ```deadline```
+## Add a Deadline Task: ```deadline```
 Adds a task with a deadline
 
 Format: ```deadline <task> /by <deadline>```\
@@ -43,7 +39,7 @@ Examples:
 - ```deadline submit coursework /by 22-09-2025```
 - ```deadline complete quiz /by tmr 22-09-2025```
 
-### Add an Event: ```event```
+## Add an Event: ```event```
 Adds an event with a from and to
 
 Format: ```event <event_name> /from <start_time> /to <end_time>```\
@@ -54,7 +50,7 @@ Examples:
 - ```event IT Show /from 21-09-2025 /to end September 30-09-2025```
 - ```event CS2113 ip /from 21-09-2025 /to Friday Oct 3rd 2359```
 
-### Mark Task: ```mark```
+## Mark Task: ```mark```
 Marks a task as done (task_number is shown when using `list`)
 
 Format: ```mark <task_number>```
@@ -63,7 +59,7 @@ Examples:
 - ```mark 1``` Marks the task at index 1 as done 
 - ```mark 3``` Marks the task at index 3 as done
 
-### Unmark Task: ```unmark```
+## Unmark Task: ```unmark```
 Marks a task as not done (task_number is shown when using `list`)
 
 Format: ```unmark <task_number>```
@@ -72,7 +68,7 @@ Examples:
 - ```unmark 1``` Marks the task at index 1 as not done
 - ```unmark 3``` Marks the task at index 3 as not done
 
-### Delete Task: ```delete```
+## Delete Task: ```delete```
 Deletes a task (task_number is shown when using `list`)
 
 Format: ```delete <task_number>```
@@ -81,7 +77,7 @@ Examples:
 - ```delete 1``` Deletes the task at index 1
 - ```delete 3``` Deletes the task at index 3
 
-### Find Task: ```find```
+## Find Task: ```find```
 Finds & Outputs all tasks that contain a keyword, case-insensitive
 
 Format: ```find <keyword>```
@@ -90,10 +86,24 @@ Examples:
 - ```find exam```
 - ```find buy```
 
-### Saving the data
+# Saving the data
 TaskMaster data are saved in the hard disk automatically before the exit of the program. There is no need to save manually
 
-### Editing the data file
+# Editing the data file
 TaskMaster data are saved automatically as a txt file `[JAR FILE LOCATION]/data/TaskMaster.txt`. Advanced users are welcome to update data directly by editng the data file.
 
 **Caution!!!:** Only edit the data file if you are confident that you can update it correctly
+
+# Command Summary
+
+| Action   | Format, Examples                                                                                                     |
+|----------|----------------------------------------------------------------------------------------------------------------------|
+| list     | `list`                                                                                                               |
+| bye      | `bye`                                                                                                                |
+| todo     | `todo <task>`\e.g. `todo buy ink`                                                                                    |
+| deadline | `deadline <task> /by <deadline>`\e.g. `deadline homework /by Thursday 02-10-2025`                                    |
+| event    | `event <event_name> /from <start_time> /to <end_time>`\e.g. `event IT show /from Tue 30-09-2025 /to Thur 02-10-2025` |
+| mark     | `mark <task_number>`\e.g. `mark 1`                                                                                   |
+| unmark   | `unmark <task_number>`\e.g. `unmark 1`                                                                               |
+| delete   | `delete <task_number>`\e.g. `delete 1`                                                                               |
+| find     | `find <keyword>` \e.g. `find exam`                                                                                   |
